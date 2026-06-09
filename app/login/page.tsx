@@ -8,14 +8,17 @@ export default function Login() {
     const [error, setError] = useState("")
 
     return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-200 px-4 font-sans">
+    <div 
+      className="flex min-h-screen items-center justify-center bg-[#63783D] bg-cover bg-center bg-no-repeat px-4 font-sans"
+      style={{ backgroundImage: "url('/images/banner1.png')" }}
+    >
       
-      <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-blue-700 transition-all">
+      <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-[#63783D] transition-all">
         <div className="text-center">
           <div className="flex justify-center items-center gap-2 text-3xl font-black tracking-widest text-white">
             {/* <div className="bg-[#f26422] p-1.5 rounded-xl text-white flex items-center justify-center">
             </div> */}
-            <span className="text-black font-bold uppercase">Bem</span><span className="text-blue-600 font-bold uppercase">Vindo</span>
+            <span className="text-black font-bold uppercase">Bem</span><span className="text-[#63783D] font-bold uppercase">Vindo</span>
           </div>
           {/* <h2 className="mt-6 text-2xl font-bold tracking-tight text-white">
             Bem-vindo de volta!
@@ -47,7 +50,7 @@ export default function Login() {
                 <label className="block text-sm font-medium text-gray-300">
                   Senha
                 </label>
-                <a href="/adm" className="text-xs text-sky-600 hover:underline">
+                <a href="/adm" className="text-xs text-[#63783D] hover:underline">
                   Esqueceu a senha?
                 </a>
               </div>
@@ -71,7 +74,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              className="w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-blue-500 transition-colors uppercase tracking-wider"
+              className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-blue-500 transition-colors uppercase tracking-wider"
             >
               Entrar
             </button>
@@ -81,7 +84,7 @@ export default function Login() {
         
         <p className="text-center text-sm text-gray-400 mt-4">
           Não tem uma conta?{' '}
-          <a href="#" className="text-sky-600 font-medium hover:underline">
+          <a href="#" className="text-[#63783D] font-medium hover:underline">
             Cadastre-se
           </a>
         </p>
@@ -90,3 +93,4 @@ export default function Login() {
     </div>
   );
 }
+
