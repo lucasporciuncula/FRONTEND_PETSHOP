@@ -1,11 +1,24 @@
 "use client"
 
+import { redirect } from "next/navigation";
 import { useState } from "react";
-
+import { usersList } from "../data/UserList";
+import { useRouter } from "next/router";
 
 export default function Login() {
 
-    const [error, setError] = useState("")
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const user = usersList;
+    
+
+    const onClick = () => {
+      if ( user.email !== "john@gmail.com") {
+        redirect("/inicial")
+      }
+    }
 
     return (
     <div 
@@ -74,6 +87,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
+              onClick={onClick}
               className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#437a4d] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-blue-500 transition-colors uppercase tracking-wider"
             >
               Entrar
