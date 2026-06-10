@@ -6,18 +6,18 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header className="w-full bg-white border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-        <div className="flex justify-center sm:justify-start">
-          <Link href="/">
-            <Image 
-              src="/images/logo_petshop.png" 
-              alt="PetShop Logo" 
-              width={35} 
-              height={50} 
-              priority
-              className="h-auto w-auto object-contain"
-            />
-          </Link>
+        <div className="w-full pr-4 pl-0 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+        <div className="flex justify-start">
+        <Link href="/">
+        <Image 
+          src="/images/logo_petshop.png" 
+          alt="PetShop Logo" 
+          width={35} 
+          height={50} 
+          priority
+          className="h-auto w-auto object-contain"
+        />
+        </Link>
         </div>
 
         <div className="hidden md:block">

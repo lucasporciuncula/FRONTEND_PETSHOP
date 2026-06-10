@@ -5,7 +5,7 @@ import { useProductContext } from "../context/ProductsContext";
 
 export function useProducts() {
   const { token } = useAuthContext();
-  const { id, setId, product, setProduct, products, setProducts } =
+  const { id, product, products, setProducts } =
     useProductContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
