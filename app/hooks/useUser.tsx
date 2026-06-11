@@ -37,7 +37,7 @@ export default function useUser() {
 
       //usa o context aq
       console.log(data)
-      login(data.token, data.user.role, data.user);
+      login(data.token, data.role, data.user);
 
       if (user?.role == "ADMIN") {
         router.push("/admin");

@@ -15,10 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased"><AuthProvider>
-       <UserProvider>
-              {children}</UserProvider>
-          </AuthProvider>
+      <body className="antialiased">
+        <AuthProvider>
+          <UserProvider>{children}</UserProvider>
+        </AuthProvider>
       </body>
     </html>
   );
