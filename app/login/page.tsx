@@ -1,27 +1,19 @@
 "use client"
 
-import { redirect } from "next/navigation";
 import { useState } from "react";
-import { usersList } from "../data/UserList";
 import { useRouter } from "next/navigation";
+import { useUserContext } from "../context/UserContext";
+import { useAuthContext } from "../context/AuthContext";
+import User from "../hooks/useUser";
 
 export default function Login() {
 
     const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const {password, email, setEmail, setPassword} = useUserContext()
+    const {handleLogin} = User()
     const [error, setError] = useState("");
-    const user = usersList;
-    
+   
 
-    const onClick = () => {
-      if ( user[1].role === "cliente") {
-        redirect("/Produtos")
-      }
-      if ( user[2].role === "admin"){
-        redirect("/admin")
-      }
-    }
 
     return (
     <div 
@@ -53,6 +45,8 @@ export default function Login() {
               </label>
               <input
                 type="email"
+                value={email}
+                onChange={(e)=>{setEmail(e.target.value)}}
                 required
                 className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[#63783D] focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
                 placeholder="seu@email.com"
@@ -72,6 +66,8 @@ export default function Login() {
               </div>
               <input
                 type="password"
+                value={password}
+                onChange={(e)=>{setPassword(e.target.value)}}
                 required
                 className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[#63783D] focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
                 placeholder="••••••••"
@@ -90,7 +86,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              onClick={onClick}
+              onClick={()=>{handleLogin}}
               className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#437a4d] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-blue-500 transition-colors uppercase tracking-wider"
             >
               Entrar

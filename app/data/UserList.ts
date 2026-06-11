@@ -1,4 +1,4 @@
-import { User } from "@/types/Users";
+import { User } from "@/app/types/Users";
 
 export const usersList: User[] = [
     {id: 1, email:"john@gmail.com", password:"12345", role: "cliente"},
