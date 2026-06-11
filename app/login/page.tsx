@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { usersList } from "../data/UserList";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
 
@@ -15,8 +15,11 @@ export default function Login() {
     
 
     const onClick = () => {
-      if ( user.email !== "john@gmail.com") {
-        redirect("/inicial")
+      if ( user[1].role === "cliente") {
+        redirect("/Produtos")
+      }
+      if ( user[2].role === "admin"){
+        redirect("/admin")
       }
     }
 
