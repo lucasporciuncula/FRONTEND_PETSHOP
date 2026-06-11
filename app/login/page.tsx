@@ -1,16 +1,13 @@
 "use client"
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useUserContext } from "../context/UserContext";
-import { useAuthContext } from "../context/AuthContext";
-import User from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 
 export default function Login() {
 
-    const router = useRouter();
     const {password, email, setEmail, setPassword} = useUserContext()
-    const {handleLogin} = User()
+    const {handleLogin} = useUser()
     const [error, setError] = useState("");
    
 
@@ -24,19 +21,14 @@ export default function Login() {
       <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-[#63783D] transition-all">
         <div className="text-center">
           <div className="flex justify-center items-center gap-2 text-3xl font-black tracking-widest text-white">
-            {/* <div className="bg-[#f26422] p-1.5 rounded-xl text-white flex items-center justify-center">
-            </div> */}
             <span className="text-black font-bold uppercase">Bem</span><span className="text-[#63783D] font-bold uppercase">Vindo</span>
           </div>
-          {/* <h2 className="mt-6 text-2xl font-bold tracking-tight text-white">
-            Bem-vindo de volta!
-          </h2> */}
           <p className="mt-2 text-sm text-gray-400">
             Insira suas credenciais para acessar sua conta
           </p>
         </div>
         
-        <form className="space-y-6" >
+        <form className="space-y-6" onSubmit={handleLogin}>
           <div className="space-y-3">
             
             <div>
@@ -86,7 +78,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              onClick={()=>{handleLogin}}
+              // onClick={()=>{handleLogin()}}
               className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#437a4d] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-blue-500 transition-colors uppercase tracking-wider"
             >
               Entrar

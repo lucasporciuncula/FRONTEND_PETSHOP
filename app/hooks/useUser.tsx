@@ -6,7 +6,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
 import { useUserContext } from "../context/UserContext";
 
-export default function User() {
+export default function useUser() {
   const router = useRouter();
   const { user, login } = useAuthContext();
   const { email, password, name } = useUserContext();
@@ -17,6 +17,7 @@ export default function User() {
     e.preventDefault();
 
     try {
+      console.log("handlelogin começou")
       setLoading(true);
       const res = await fetch(API_BASE_URL + "/auth/login", {
         method: "POST",
@@ -35,6 +36,7 @@ export default function User() {
       setError(null);
 
       //usa o context aq
+      console.log(data)
       login(data.token, data.user.role, data.user);
 
       if (user?.role == "ADMIN") {
