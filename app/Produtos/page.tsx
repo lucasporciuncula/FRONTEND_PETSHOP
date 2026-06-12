@@ -4,7 +4,7 @@ import Banner from "./components/Banner";
 import Categories from "./components/Categorias";
 import Header from "./components/Header";
 import Roupas from "./components/Roupas";
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider } from "../context/ThemeContext" 
 
 export default function Produtos() {
   return (

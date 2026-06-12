@@ -3,6 +3,8 @@
 import { useProducts } from "../hooks/useProducts";
 
 export default function Admin() {
+  
+
   const { products } = useProducts();
   return (
     <div className="flex items-center justify-center w-full h-screen">
