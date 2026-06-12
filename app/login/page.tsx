@@ -15,7 +15,7 @@ export default function Login() {
     return (
     <div 
       className="flex min-h-screen items-center justify-center bg-[#63783D] bg-cover bg-center bg-no-repeat px-4 font-sans"
-      style={{ backgroundImage: "url('/images/banner3.png')" }}
+      style={{ backgroundImage: "url('/images/BANNER.png')" }}
     >
       
       <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-[#63783D] transition-all">
