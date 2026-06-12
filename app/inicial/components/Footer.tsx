@@ -11,11 +11,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-800">
         <div className="space-y-4">
           <h5 className="text-white font-bold text-lg tracking-wide mb-2">Address</h5>
-          <div className="flex items-center gap-3 text-sm"><MapPin className="w-4 h-4 text-[#b2ca87]" /> <span>123 Street, New York, USA</span></div>
-          <div className="flex items-center gap-3 text-sm"><Phone className="w-4 h-4 text-[#b2ca87]" /> <span>+012 345 67890</span></div>
-          <div className="flex items-center gap-3 text-sm"><Mail className="w-4 h-4 text-[#b2ca87]" /> <span>info@example.com</span></div>
+          <div className="flex items-center gap-3 text-sm"><MapPin className="w-4 h-4 text-[#eed5aa]" /> <span>123 Street, New York, USA</span></div>
+          <div className="flex items-center gap-3 text-sm"><Phone className="w-4 h-4 text-[#eed5aa]" /> <span>+012 345 67890</span></div>
+          <div className="flex items-center gap-3 text-sm"><Mail className="w-4 h-4 text-[#eed5aa]" /> <span>info@example.com</span></div>
           
-          {/* Redes Sociais Resolvidas Definitivamente com SVGs Nativos */}
           <div className="flex gap-2 pt-2 text-gray-400">
             <a href="#" className="w-9 h-9 rounded-lg border border-gray-700 hover:bg-white hover:text-gray-900 flex items-center justify-center transition-colors">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>

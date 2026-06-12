@@ -17,12 +17,12 @@ export default function Animals() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-12">
           <div className="space-y-2">
-            <p className="text-[#63783D] font-semibold text-lg"><span className="font-bold">#</span> Our Animals</p>
+            <p className="text-[#4a2f20] font-semibold text-lg"><span className="font-bold">#</span> Nossos produtos</p>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 max-w-xl leading-tight">
-              PetShop <span className="text-[#63783D]">PetShop</span> Awesome Animals
+              Pet <span className="text-[#4a2f20]">Shop</span> produtos de qualidade
             </h1>
           </div>
-          <button className="bg-[#63783D] hover:bg-[#526333] text-white px-8 py-4 rounded font-semibold transition-colors whitespace-nowrap self-start md:self-auto">
+          <button className="bg-[#4a2f20] hover:bg-[#352014] text-white px-8 py-4 rounded font-semibold transition-colors whitespace-nowrap self-start md:self-auto">
             Veja nosso trabalho
           </button>
         </div>
