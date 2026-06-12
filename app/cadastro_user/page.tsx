@@ -7,7 +7,7 @@ import useUser from "../hooks/useUser";
 export default function Login() {
 
     const {name, setName, email, setEmail, password, setPassword} = useUserContext()
-    const {handleLogin} = useUser()
+    const {handleCadastro} = useUser()
     const [error, setError] = useState("");
    
 
@@ -28,7 +28,7 @@ export default function Login() {
           </p>
         </div>
         
-        <form className="space-y-6" onSubmit={handleLogin}>
+        <form className="space-y-6" onSubmit={handleCadastro}>
           <div className="space-y-3">
 
             <div>
@@ -36,7 +36,7 @@ export default function Login() {
                 Nome
               </label>
               <input
-                type="nome"
+                type="name"
                 value={name}
                 onChange={(e)=>{setName(e.target.value)}}
                 required
@@ -90,7 +90,6 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              // onClick={()=>{handleLogin()}}
               className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#437a4d] active:scale-95 uppercase tracking-wider transition-all duration-100 hover:shadow-md "
             >
               Entrar
@@ -98,14 +97,12 @@ export default function Login() {
           </div>
         </form>
 
-        
         <p className="text-center text-sm text-gray-400 mt-4">
-          Não tem uma conta?{' '}
-          <a href="#" className="text-[#63783D] font-medium hover:underline">
-            Cadastre-se
+          <a href="/login" className="text-[#63783D] font-medium hover:underline">
+            Voltar à página de login
           </a>
         </p>
-
+        
       </div>
     </div>
   );

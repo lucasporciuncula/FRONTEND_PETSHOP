@@ -1,10 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+
 import { API_BASE_URL } from "../utils/config";
 import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
 import { useUserContext } from "../context/UserContext";
+import { useRouter } from "next/navigation";
 
 export default function useUser() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function useUser() {
       });
 
       if (!res.ok) {
-        console.log("Email ou senha ou nome inválidos. Tente Novamente.");
+        console.log(error);
         return;
       }
 
