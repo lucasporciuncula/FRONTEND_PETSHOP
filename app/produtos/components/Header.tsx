@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="w-full bg-white border-b border-gray-100">
         <div className="w-full pr-4 pl-0 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-        <div className="flex justify-start">
+        <div className="flex justify-start ml-10">
         <Link href="/">
         <Image 
           src="/images/logo_petshop.png" 
@@ -33,7 +33,7 @@ export default function Header() {
           </form>
         </div>
 
-        <div className="hidden sm:flex justify-end gap-6 text-sm text-right">
+        <div className="hidden sm:flex justify-end gap-6 text-sm text-right mr-10">
           <div>
             <span className="block text-xs uppercase tracking-wider text-gray-400 font-medium">Telefone</span>
             <span className="font-semibold text-gray-900">+980-34984089</span>
