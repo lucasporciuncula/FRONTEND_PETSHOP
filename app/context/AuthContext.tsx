@@ -40,7 +40,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(storedUser ? JSON.parse(storedUser) : user);
 
     setLoading(false);
+    
   }, []);
+  
 
   const login = (newToken: string, newProfile: string, newUser: User) => {
     sessionStorage.setItem("token", newToken);
