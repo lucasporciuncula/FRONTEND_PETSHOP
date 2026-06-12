@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "../utils/config";
@@ -17,7 +17,7 @@ export default function useUser() {
     e.preventDefault();
 
     try {
-      console.log("handlelogin começou")
+      console.log("handlelogin começou");
       setLoading(true);
       const res = await fetch(API_BASE_URL + "/auth/login", {
         method: "POST",
@@ -36,8 +36,12 @@ export default function useUser() {
       setError(null);
 
       //usa o context aq
-      console.log(data)
-      login(data.token, data.role, data.user);
+      console.log("data:", data);
+      const token = data.token;
+      const user = data.user;
+      const role = data.user.role; // Se o role estiver dentro do objeto user
+
+      login(token, user, role);
 
       if (user?.role == "ADMIN") {
         router.push("/admin");
@@ -87,6 +91,7 @@ export default function useUser() {
     }
   };
   return {
-    handleLogin, handleCadastro
+    handleLogin,
+    handleCadastro,
   };
 }
