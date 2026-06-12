@@ -53,7 +53,7 @@ export function useProductContext() {
   const context = useContext(ProductContext);
 
   if (!context) {
-    throw new Error("useAuth deve ser usado dentro do AuthProvider");
+    throw new Error("useProducts deve ser usado dentro do ProductsProvider");
   }
 
   return context;

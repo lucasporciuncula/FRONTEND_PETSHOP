@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
+import { ProductProvider } from "./context/ProductsContext";
 
 export const metadata: Metadata = {
   title: "SnapBite Delivery",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className="antialiased">
         <AuthProvider>
-          <UserProvider>{children}</UserProvider>
+          <ProductProvider>
+            <UserProvider>{children}</UserProvider>
+          </ProductProvider>
         </AuthProvider>
       </body>
     </html>
