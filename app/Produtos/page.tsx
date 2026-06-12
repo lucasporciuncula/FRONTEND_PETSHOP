@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Roupas from "./components/Roupas";
 import { ThemeProvider } from "../context/ThemeContext";
 
-export default function PaginaInicial() {
+export default function Produtos() {
   return (
     <ThemeProvider>
       <main className="font-sans bg-white text-gray-600 antialiased selection:bg-[#DEAD6F]/20">
