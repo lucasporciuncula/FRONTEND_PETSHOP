@@ -29,6 +29,7 @@ export function useProducts() {
 
         const data = await res.json();
         setProducts(data);
+        console.log(data)
         setError(null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "erro desconhecido");
