@@ -4,29 +4,17 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "../context/AuthContext";
 import { useProductContext } from "../context/ProductsContext"; import { useEffect } from "react";
 
-
 export default function Admin() {
   const { product, products, setProduct } = useProductContext()
-  const { isAuthenticated, user } = useAuthContext();
+  const { user } = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {
     // Se o contexto já carregou e o usuário NÃO é admin, barra ele
-    if (!user?.role || user.role !== "ADMIN") {
+    if (user !== "ADMIN") {  ///NAO MUDA ISSO TA DANDO CERTO
       router.push("/Produtos"); // Manda de volta para os produtos
     }
   }, [user, router]);
-
-  // Enquanto verifica o papel do usuário, exibe uma tela de carregamento
-  if (!isAuthenticated) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p>Verificando permissões...</p>
-      </div>
-    );
-  }
-
-
 
   return (
     <div className="flex items-center justify-center w-full h-screen flex-col col-end-1">
