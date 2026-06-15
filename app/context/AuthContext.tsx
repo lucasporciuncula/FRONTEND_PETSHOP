@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedProfile = sessionStorage.getItem("profile");
     const storedUser = sessionStorage.getItem("user");
 
-    setToken(storedToken);
+    setToken(storedToken); //NAO MECHER TA DANDO CERTO CONFIA
     setProfile(storedProfile);
     setUser(storedUser ? JSON.parse(storedUser) : user);
 
