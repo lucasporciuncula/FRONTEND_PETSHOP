@@ -39,9 +39,9 @@ export function useProducts() {
       }
     };
     getAllProducts();
-  }, [token]);
+  }, [token, setProducts]);
 
-  const editProduct = async () => {
+  const createProduct = async () => {
     try {
       setLoading(true);
       const res = await fetch(API_BASE_URL + "/products", {
@@ -126,7 +126,7 @@ export function useProducts() {
     products,
     loading,
     error,
-    editProduct,
+    createProduct,
     updateProduct,
     deleteProduct,
   };
