@@ -7,9 +7,9 @@ export default function Testimonials() {
   const [active, setActive] = useState(0);
 
   const list = [
-    { name: "John Doe", role: "Biologist", img: "/img/testimonial-1.jpg", text: "Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita." },
-    { name: "Jane Smith", role: "Photographer", img: "/img/testimonial-2.jpg", text: "Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita. Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed." },
-    { name: "Alex Rivera", role: "Tourist", img: "/img/testimonial-3.jpg", text: "Amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita clita clita tempor justo." }
+    { name: "Pai João de Oxum", role: "Babalorixá", img: "/img/testimonial-1.jpg", text: "Amei os banhos de descarrego que dão nos bichos! Meu gato entrou com sete vidas e saiu brilhando tanto que parecia ter ganhado mais sete. Axé e muito obrigado pelo atendimento!" },
+    { name: "Mestre Hermes da Silva", role: "Alquimista", img: "/img/testimonial-2.jpg", text: "Transformaram o pelo do meu cachorro de latão para ouro puro com os produtos de vocês! A fórmula desse shampoo é pura magia da transmutação. Recomendo de olhos fechados." },
+    { name: "Cláudio Xicungunha", role: "Radiestesista Técnico", img: "/img/testimonial-3.jpg", text: "Passei o pêndulo na ração que comprei aqui e a energia vibratória deu 100% positiva! Meu cachorro parou de latir para o vento e o ambiente de casa ficou limpíssimo." }
   ];
 
   return (
