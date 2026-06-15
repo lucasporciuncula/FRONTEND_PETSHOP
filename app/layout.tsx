@@ -5,8 +5,8 @@ import { UserProvider } from "./context/UserContext";
 import { ProductProvider } from "./context/ProductsContext";
 
 export const metadata: Metadata = {
-  title: "SnapBite Delivery",
-  description: "O melhor delivery de lanches",
+  title: "PetShop",
+  description: "muito bom os produtos tá",
 };
 
 export default function RootLayout({
