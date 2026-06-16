@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-
     <section className="relative w-full min-h-[calc(100vh-80px)] lg:min-h-187.5 flex items-start overflow-hidden">
 
       <div className="absolute inset-0 z-0">
