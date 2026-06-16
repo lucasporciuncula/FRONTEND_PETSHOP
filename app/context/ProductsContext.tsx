@@ -15,10 +15,10 @@ type productInfo = {
   image: string;
   categoria: string;
   animal: string;
+  id:number
 };
 type ProductContextType = {
-  id: number;
-  setId: Dispatch<SetStateAction<number>>;
+  id: number |undefined;
   product: productInfo | null;
   setProduct: Dispatch<SetStateAction<productInfo | null>>;
   products: Array<productInfo | null>;
@@ -28,15 +28,13 @@ type ProductContextType = {
 const ProductContext = createContext<ProductContextType | null>(null);
 
 export function ProductProvider({ children }: { children: React.ReactNode }) {
-  const [id, setId] = useState(0);
   const [product, setProduct] = useState<productInfo | null>(null);
   const [products, setProducts] = useState<Array<productInfo | null>>([]);
 
   return (
     <ProductContext.Provider
       value={{
-        id,
-        setId,
+        id:product?.id,
         product,
         setProduct,
         products,

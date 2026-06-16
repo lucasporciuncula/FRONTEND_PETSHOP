@@ -49,16 +49,15 @@ export function useProducts() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          body: JSON.stringify({ productInfo: product }),
-        },
+          
+        },body: JSON.stringify( product ),
       });
 
       if (!res.ok) {
         throw new Error("erro ao create produtos");
       }
 
-      const data = await res.json();
-      setProducts(data);
+      setProducts((prevProducts) => [...prevProducts, product])
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "erro desconhecido");
@@ -76,8 +75,8 @@ export function useProducts() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          body: JSON.stringify({ id, productInfo: product }),
         },
+          body: JSON.stringify({ id, productInfo: product })
       });
 
       if (!res.ok) {
@@ -95,24 +94,24 @@ export function useProducts() {
     }
   };
 
-  const deleteProduct = async () => {
+  const deleteProduct = async (id:number) => {
+    console.log("O que está chegando na função delete:", id);
+    const usedId = id.toString()
     try {
       setLoading(true);
-      const res = await fetch(API_BASE_URL + "/products", {
+      const res = await fetch(API_BASE_URL + "/products/"+usedId, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          body: JSON.stringify({ id }),
-        },
+        }
       });
 
       if (!res.ok) {
         throw new Error("erro ao delete produtos");
       }
 
-      const data = await res.json();
-      setProducts(data);
+      setProducts((prevProducts) => prevProducts.filter((p) => p?.id !== id))
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "erro desconhecido");
