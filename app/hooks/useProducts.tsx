@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../utils/config";
 import { useAuthContext } from "../context/AuthContext";
 import { useProductContext } from "../context/ProductsContext";
+import { Products } from "../types/productsType";
 
 export function useProducts() {
   const { token } = useAuthContext();
@@ -41,7 +42,7 @@ export function useProducts() {
     getAllProducts();
   }, [token, setProducts]);
 
-  const createProduct = async () => {
+  const createProduct = async (product:Products) => {
     try {
       setLoading(true);
       const res = await fetch(API_BASE_URL + "/products", {
@@ -67,7 +68,7 @@ export function useProducts() {
     }
   };
 
-  const updateProduct = async () => {
+  const updateProduct = async (product:Products) => {
     try {
       setLoading(true);
       const res = await fetch(API_BASE_URL + "/products", {
@@ -76,7 +77,7 @@ export function useProducts() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-          body: JSON.stringify({ id, productInfo: product })
+          body: JSON.stringify({ productInfo: product })
       });
 
       if (!res.ok) {

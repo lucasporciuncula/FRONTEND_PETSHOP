@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useProducts } from "../hooks/useProducts";
 
 export default function Admin() {
-  const { product, setProduct, id } = useProductContext();
+  const { product, setProduct } = useProductContext();
   const { products, createProduct, deleteProduct, updateProduct } =
     useProducts();
 
@@ -27,12 +27,12 @@ export default function Admin() {
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
-  const [label, setLabel] = useState(product?.label);
-  const [price, setPrice] = useState(product?.price);
-  const [description, setDescription] = useState(product?.description);
-  const [animal, setAnimal] = useState(product?.animal);
-  const [category, setCategory] = useState(product?.categoria);
-  const [image, setImage] = useState(product?.image);
+  const [label, setLabel] = useState(product?.label ? product.label : "label");
+  const [price, setPrice] = useState(product?.price ? product.price : 0);
+  const [description, setDescription] = useState(product?.description ? product.description : "description");
+  const [animal, setAnimal] = useState(product?.animal ? product.animal : "animal");
+  const [category, setCategory] = useState(product?.categoria ? product.categoria : "categoria");
+  const [image, setImage] = useState(product?.image ? product.image : "image");
 
   useEffect(() => {
     if (user !== "ADMIN") {
@@ -131,7 +131,7 @@ export default function Admin() {
               const isSelected = product?.label === prod?.label;
               return (
                 <div
-                  key={prod?.label}
+                  key={prod?.id}
                   onClick={() =>
                     setProduct(prod?.id === product?.id ? null : prod)
                   }
@@ -275,7 +275,7 @@ export default function Admin() {
                       onChange={(e) => {
                         setAnimal(e.target.value);
                       }}
-                      value={product.animal}
+                      value={animal}
                       type="text"
                     />
                   </div>
@@ -286,9 +286,9 @@ export default function Admin() {
                     <input
                       className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
                       onChange={(e) => {
-                        setAnimal(e.target.value);
+                        setCategory(e.target.value);
                       }}
-                      value={product.animal}
+                      value={category}
                       type="text"
                     />
                   </div>
@@ -296,34 +296,150 @@ export default function Admin() {
                     <span className="text-gray-500 text-[10px] uppercase">
                       Nome
                     </span>
-                    <span className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5">
-                      {product?.label}
-                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setLabel(e.target.value);
+                      }}
+                      value={label}
+                      type="text"
+                    />
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-[10px] uppercase">
                       Descrição
                     </span>
-                    <span className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5">
-                      {product?.description}
-                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
+                      value={description}
+                      type="text"
+                    />
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-500 text-[10px] uppercase">
                       Preço
                     </span>
-                    <span className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5 capitalize">
-                      {product?.price.toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                      })}
-                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setPrice(e.target.valueAsNumber);
+                      }}
+                      value={price}
+                      type="number"
+                    />
                     <button
                       onClick={() =>
-                        deleteProduct(product?.id ? product.id : 1)
+                        createProduct({label, description, price, animal, categoria:category, image, id:0})
                       }
-                      className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 hover:bg-red-600 bg-red-900 text-white shadow-md "
+                      className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 hover:bg-green-600 bg-green-900 text-white shadow-md "
                     >
-                      Deletar Produto Selecionado
+                      create Produto
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center text-gray-500 my-auto py-6 text-xs font-medium">
+                  Selecione um produto na lista para visualizar as informações
+                  aqui.
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {isEditing === true && (
+          <div className="w-full max-w-150 bg-[#1e1e1e] border border-white/5 rounded-3xl p-6 flex flex-col gap-5 shadow-xl sticky top-6">
+            <div className="flex flex-col gap-3">
+              <h4 className="text-[10px] font-black uppercase text-gray-500 tracking-wider">
+                Editando um Produto
+              </h4>
+
+              {product ? (
+                <div className="flex flex-col gap-3 text-xs font-medium text-gray-300">
+                  <div className="relative shrink-0 overflow-hidden flex items-center justify-center">
+                    <Image
+                      src={`/images/products/${product?.animal}/${product?.image}.jpg`}
+                      alt={product?.label || "Imagem do produto"}
+                      width={180}
+                      height={180}
+                      className="object-cover  rounded-2xl"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[10px] uppercase">
+                      Animal
+                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setAnimal(e.target.value);
+                      }}
+                      value={animal}
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[10px] uppercase">
+                      Categoria
+                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setCategory(e.target.value);
+                      }}
+                      value={category}
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[10px] uppercase">
+                      Nome
+                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setLabel(e.target.value);
+                      }}
+                      value={label}
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[10px] uppercase">
+                      Descrição
+                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
+                      value={description}
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[10px] uppercase">
+                      Preço
+                    </span>
+                    <input
+                      className="text-sm bg-[#121212] p-2 rounded-lg border border-white/5"
+                      onChange={(e) => {
+                        setPrice(e.target.valueAsNumber);
+                      }}
+                      value={price}
+                      type="number"
+                    />
+                    <button
+                      onClick={() =>
+                        updateProduct({label, description, price, animal, categoria:category, image, id:0})
+                      }
+                      className="px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 hover:bg-blue-600 bg-blue-900 text-white shadow-md "
+                    >
+                      update Produto
                     </button>
                   </div>
                 </div>
