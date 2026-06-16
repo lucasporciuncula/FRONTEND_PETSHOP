@@ -4,12 +4,12 @@ import Image from "next/image";
 
 export default function Animals() {
   const categories = [
-    { id: 1, name: "Caminha", type: "Caminha", img: "/img/animal-md-1.jpg" },
-    { id: 2, name: "Osso", type: "Brinquedo", img: "/img/animal-lg-1.jpg" },
-    { id: 3, name: "Shampoo", type: "Cosmetico", img: "/img/animal-lg-2.jpg" },
-    { id: 4, name: "Guia", type: "Proteção", img: "/img/animal-md-2.jpg" },
-    { id: 5, name: "Coleira", type: "Proteção", img: "/img/animal-md-3.jpg" },
-    { id: 6, name: "Roupa", type: "Vestuario", img: "/img/animal-lg-3.jpg" },
+    { id: 1, name: "Caminha", type: "Caminha", img: "/images/products/cat/catBed.jpg" },
+    { id: 2, name: "Arranhador", type: "Brinquedo", img: "/images/products/cat/catScracher.jpg" },
+    { id: 3, name: "Shampoo", type: "Cosmetico", img: "/images/products/cat/catShampoo.jpg" },
+    { id: 4, name: "Caminha", type: "Caminha", img: "/images/products/dog/dogBed.jpg" },
+    { id: 5, name: "Vasilha", type: "Alimentação", img: "/images/products/dog/dogBowl.jpg" },
+    { id: 6, name: "Ração", type: "Comida", img: "/images/products/dog/dogFood.jpg" },
   ];
 
   return (
