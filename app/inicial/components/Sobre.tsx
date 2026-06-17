@@ -12,7 +12,7 @@ export default function Sobre() {
   ];
 
   return (
-    <section className="w-full py-20 bg-white">
+    <section className="w-full bg-white">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="relative aspect-4/3 rounded-2xl overflow-hidden shadow-xl">
           <Image src="/images/clinica.png" alt="About Zoofari" fill className="object-cover" />

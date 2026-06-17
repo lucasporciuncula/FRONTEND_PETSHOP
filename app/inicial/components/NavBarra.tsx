@@ -15,10 +15,10 @@ export default function NavBarra() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8 font-semibold text-gray-700">
-          <Link href="#" className="text-[#4a2f20]">Home</Link>
-          <Link href="#" className="hover:text-[#4a2f20] transition-colors">Sobre</Link>
-          <Link href="#" className="hover:text-[#4a2f20] transition-colors">Serviços</Link>
-          <Link href="#" className="hover:text-[#4a2f20] transition-colors">Contato</Link>
+          <Link href="#Home" className="text-[#4a2f20]">Home</Link>
+          <Link href="#Sobre" className="hover:text-[#4a2f20] transition-colors">Sobre</Link>
+          <Link href="#Produtos" className="hover:text-[#4a2f20] transition-colors">Produtos</Link>
+          <Link href="#Contato" className="hover:text-[#4a2f20] transition-colors">Contato</Link>
           <button className="bg-[#4a2f20] hover:bg-[#362318] text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
             Carrinho <ArrowRight className="w-4 h-4" />
           </button>

@@ -16,14 +16,15 @@ export default function Home() {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white font-sans antialiased text-gray-900">
+    <div className=" bg-white font-sans antialiased text-gray-900">
       <Topbar />
       <NavBarra />
-      <Hero />
-      <Sobre />
+      <section id="Home" className="">
+        <Hero /></section>
+      <section id="Sobre" className="py-20"><Sobre /></section>
       <Facts />
-      <Animals />
-      <VisitingHours />
+      <section id="Produtos" className="py-10"><Animals /></section>
+       <section id="Contato" className=""><VisitingHours /></section>
       <Membership />
       <Testimonials />
       <Footer />
@@ -31,8 +32,8 @@ export default function Home() {
       {showVideo && (
         <div className="fixed inset-0 z-100 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-3xl rounded-2xl overflow-hidden relative shadow-2xl">
-            <button 
-              onClick={() => setShowVideo(false)} 
+            <button
+              onClick={() => setShowVideo(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-black font-bold text-xl z-10 p-2"
             >
               ✕

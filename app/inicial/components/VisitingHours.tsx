@@ -27,7 +27,7 @@ export default function VisitingHours() {
         </div>
 
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold tracking-tight border-b border-white/20 pb-4">Indormação de contato</h1>
+          <h1 className="text-3xl font-bold tracking-tight border-b border-white/20 pb-4">Informação de contato</h1>
           <div className="space-y-4">
             <div className="grid grid-cols-3 py-2 border-b border-white/10">
               <span className="font-semibold text-white/80">Escritório</span>
