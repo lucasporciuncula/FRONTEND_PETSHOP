@@ -68,32 +68,35 @@ export function useProducts() {
     }
   };
 
-  const updateProduct = async (product:Products) => {
-    try {
-      setLoading(true);
-      const res = await fetch(API_BASE_URL + "/products", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-          body: JSON.stringify({ productInfo: product })
-      });
+  const updateProduct = async (product: Products) => {
+  try {
+    setLoading(true);
+    const res = await fetch(`${API_BASE_URL}/products/${product.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(product) 
+    });
 
-      if (!res.ok) {
-        throw new Error("erro ao update produtos");
-      }
-
-      const data = await res.json();
-      setProducts(data);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "erro desconhecido");
-      console.log("erro: " + err);
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      console.error("Status do erro:", res.status); 
+      throw new Error(`erro ao update produtos: ${res.statusText}`);
     }
-  };
+
+    setProducts((prevProducts) => 
+      prevProducts.map((p) => (p?.id === product.id ? product : p))
+    );
+    
+    setError(null);
+  } catch (err) {
+    setError(err instanceof Error ? err.message : "erro desconhecido");
+    console.log("erro: " + err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const deleteProduct = async (id:number) => {
     console.log("O que está chegando na função delete:", id);

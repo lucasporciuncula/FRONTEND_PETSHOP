@@ -27,7 +27,7 @@ export default function ProductList({ products, selectedProduct, onSelect }: Pro
           <div
             key={prod?.id}
             onClick={() => onSelect(prod)}
-            className={`p-5 rounded-2xl transition-all flex items-center justify-between cursor-pointer min-h-[120px] w-full ${isSelected
+            className={`p-5 rounded-2xl transition-all flex items-center justify-between cursor-pointer min-h-30 w-full ${isSelected
                 ? "bg-white border-2 border-[#4A3728] shadow-md"
                 : "bg-white border border-[#E8E3DD] hover:shadow-md hover:border-[#D0C5BA]"
               }`}

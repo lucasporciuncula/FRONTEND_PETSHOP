@@ -9,20 +9,9 @@ import ProductList from "./components/ProductList";
 import AdminFilters from "./components/AdminFilters";
 import ProductDetails from "./components/ProductDetails";
 import ProductForm from "./components/ProductForm";
+import { Products } from "../types/productsType";
 
-
-// Recomendo mover esta interface para um arquivo separado, ex: types/Product.ts
-export interface Product {
-  id: number; // ou string, dependendo do seu banco de dados
-  label: string;
-  description: string;
-  price: number;
-  animal: string;
-  categoria: string;
-  image: string;
-}
-
-export type AdminMode = "view" | "create" | "edit";
+export type modoAtivado = "olhar" | "criar" | "editar"
 
 export default function Admin() {
   const { product, setProduct } = useProductContext();
@@ -33,7 +22,7 @@ export default function Admin() {
   // Estados com tipagem inferida e explícita
   const [selectedAnimal, setSelectedAnimal] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [mode, setMode] = useState<AdminMode>("view");
+  const [mode, setModoAtivado] = useState<modoAtivado>("olhar");
 
   useEffect(() => {
     if (user !== "ADMIN") {
@@ -45,9 +34,9 @@ export default function Admin() {
     .filter((p) => p?.animal === selectedAnimal || selectedAnimal === "all")
     .filter((p) => p?.categoria === selectedCategory || selectedCategory === "all");
 
-  const handleSelectProduct = (prod: Product) => {
+  const handleSelectProduct = (prod: Products) => {
     setProduct(prod?.id === product?.id ? null : prod);
-    setMode("view");
+    setModoAtivado("olhar");
   };
 
   return (
@@ -65,17 +54,17 @@ export default function Admin() {
 
         <div className="flex gap-3">
           <button
-            onClick={() => { setMode("create"); setProduct(null); }}
+            onClick={() => { setModoAtivado("criar"); setProduct(null); }}
             className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#4A3728] hover:bg-[#38291e] text-white shadow-md"
           >
             + Novo Produto
           </button>
           <button
-            onClick={() => mode === "edit" ? setMode("view") : setMode("edit")}
-            disabled={!product && mode !== "create"}
+            onClick={() => mode === "editar" ? setModoAtivado("olhar") : setModoAtivado("editar")}
+            disabled={!product && mode !== "criar"}
             className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#F5F2EC] hover:bg-[#e8e2d5] text-[#4A3728] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {mode === "edit" ? "Cancelar Edição" : "Editar Selecionado"}
+            {mode === "editar" ? "Cancelar Edição" : "Editar Selecionado"}
           </button>
         </div>
       </div>
@@ -96,19 +85,19 @@ export default function Admin() {
         />
 
         <div className="w-full lg:max-w-md xl:max-w-lg sticky top-8">
-          {mode === "view" && (
+          {mode === "olhar" && (
             <ProductDetails
               product={product}
               onDelete={deleteProduct}
             />
           )}
 
-          {(mode === "create" || mode === "edit") && (
+          {(mode === "criar" || mode === "editar") && (
             <ProductForm
               mode={mode}
-              initialData={mode === "edit" ? product : null}
-              onSubmit={mode === "create" ? createProduct : updateProduct}
-              onCancel={() => setMode("view")}
+              initialData={mode === "editar" ? product : null}
+              onSubmit={mode === "criar" ? createProduct : updateProduct}
+              onCancel={() => setModoAtivado("olhar")}
             />
           )}
         </div>
