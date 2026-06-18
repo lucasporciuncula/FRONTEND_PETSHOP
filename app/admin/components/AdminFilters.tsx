@@ -1,17 +1,17 @@
-interface AdminFiltersProps {
+export interface AdminFiltersProps {
   selectedAnimal: string;
   setSelectedAnimal: (animal: string) => void;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
 }
 
-export default function AdminFilters({ 
-  selectedAnimal, 
-  setSelectedAnimal, 
-  selectedCategory, 
-  setSelectedCategory 
+export default function AdminFilters({
+  selectedAnimal,
+  setSelectedAnimal,
+  selectedCategory,
+  setSelectedCategory
 }: AdminFiltersProps) {
-  
+
   const animals = [
     { id: "all", label: "Todos" },
     { id: "dog", label: "Cachorros" },
@@ -29,11 +29,10 @@ export default function AdminFilters({
     { id: "shampoo", label: "Shampoos" },
   ];
 
-  const ButtonStyle = (isActive: boolean) => 
-    `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 ${
-      isActive
-        ? "bg-[#4A3728] text-white shadow-md"
-        : "bg-white text-[#4A3728] hover:bg-[#F5F2EC] border border-[#E8E3DD]"
+  const ButtonStyle = (isActive: boolean) =>
+    `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 ${isActive
+      ? "bg-[#4A3728] text-white shadow-md"
+      : "bg-white text-[#4A3728] hover:bg-[#F5F2EC] border border-[#E8E3DD]"
     }`;
 
   return (

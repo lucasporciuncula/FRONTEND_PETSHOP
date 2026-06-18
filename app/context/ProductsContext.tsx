@@ -31,6 +31,8 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
   const [product, setProduct] = useState<productInfo | null>(null);
   const [products, setProducts] = useState<Array<productInfo | null>>([]);
 
+
+
   return (
     <ProductContext.Provider
       value={{

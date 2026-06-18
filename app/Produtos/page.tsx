@@ -3,7 +3,7 @@
 import Banner from "./components/Banner";
 import Categories from "./components/Categorias";
 import Header from "./components/Header";
-import Roupas from "./components/Roupas";
+import Produto from "./components/products";
 import { ThemeProvider } from "../context/ThemeContext" 
 import { useAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ export default function Produtos() {
         <Header />
         <Banner />
         <Categories />
-        <Roupas />
+        <Produto />
       </main>
     </ThemeProvider>
   );
