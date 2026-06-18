@@ -49,12 +49,12 @@ export default function Footer() {
           <h5 className="text-white font-bold text-lg tracking-wide mb-2">Newsletter</h5>
           <div className="relative w-full">
             <input type="email" placeholder="Your email" className="w-full bg-gray-800 border-0 rounded-xl py-3 pl-4 pr-24 text-sm text-white focus:outline-none" />
-            <button className="absolute right-1.5 top-1.5 bg-[#63783D] hover:bg-[#526333] text-white px-4 py-1.5 rounded-lg text-xs font-bold">SignUp</button>
+            <button className="absolute right-1.5 top-1.5 bg-[#4a2f20] hover:bg-[#664533] text-white px-4 py-1.5 rounded-lg text-xs font-bold">SignUp</button>
           </div>
         </div>
       </div>
 
-      <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-[#63783D] hover:bg-[#526333] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg z-50">
+      <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-[#4a2f20] hover:bg-[#664533] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg z-50">
         <ArrowUp className="w-5 h-5" />
       </button>
     </footer>

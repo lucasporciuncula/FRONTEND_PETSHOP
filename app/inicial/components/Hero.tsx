@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default function Hero() {
   return (
@@ -26,12 +27,12 @@ export default function Hero() {
           </h1>
           
           <p className="text-[#4a2f20] text-lg lg:text-xl font-normal">
-            descrição super foda.
+            Uma pequena frase que te faça querer comprar
           </p>
           
           <div className="pt-2">
-            <button className="bg-[#4a2f20] hover:bg-[#5c3d2e] text-[#eed5aa] px-6 py-2 rounded-full text-xs font-bold transition-transform active:scale-95 shadow-md">
-              Leia mais
+            <button className="bg-[#4a2f20] hover:bg-[#5c3d2e] text-[#eed5aa] px-10 py-4 rounded-full text-lg font-bold transition-transform active:scale-95 shadow-md" onClick={()=>{redirect("/login")}}>
+              Entrar
             </button>
           </div>
 

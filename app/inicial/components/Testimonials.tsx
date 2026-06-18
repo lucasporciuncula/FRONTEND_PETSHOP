@@ -25,7 +25,7 @@ export default function Testimonials() {
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-12">Our Clients Say!</h1>
         <div className="relative">
-          <button 
+          <button
             onClick={handlePrev}
             className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-gray-50 text-gray-700 border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95 invisible sm:visible"
             aria-label="Previous testimonial"
@@ -33,29 +33,29 @@ export default function Testimonials() {
             &#10094;
           </button>
           <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-md border border-gray-100 flex flex-col items-center space-y-6">
-            <div className="relative w-24 h-24 rounded-full p-1 border-2 border-[#63783D]">
+            <div className="relative w-24 h-24 rounded-full p-1 border-2 border-[#664533]">
               <Image src={list[active].img} alt={list[active].name} fill className="rounded-full object-cover" />
             </div>
-            <p className="text-gray-600 italic max-w-2xl leading-relaxed">"{list[active].text}"</p>
+            <p className="text-gray-600 italic max-w-2xl leading-relaxed">{list[active].text}</p>
             <div>
               <h5 className="font-bold text-gray-900 text-lg">{list[active].name}</h5>
-              <span className="text-sm text-[#63783D] font-medium">{list[active].role}</span>
+              <span className="text-sm text-[#664533] font-medium">{list[active].role}</span>
             </div>
 
-          <button 
-            onClick={handleNext}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-gray-50 text-gray-700 border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95 invisible sm:visible"
-            aria-label="Next testimonial"
-          >
-            &#10095;
-          </button>
+            <button
+              onClick={handleNext}
+              className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-gray-50 text-gray-700 border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95 invisible sm:visible"
+              aria-label="Next testimonial"
+            >
+              &#10095;
+            </button>
           </div>
           <div className="flex justify-center gap-3 mt-6">
             {list.map((_, index) => (
-              <button 
-                key={index} 
+              <button
+                key={index}
                 onClick={() => setActive(index)}
-                className={`h-3 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-[#63783D]" : "w-3 bg-gray-300"}`}
+                className={`h-3 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-[#664533]" : "w-3 bg-gray-300"}`}
               />
             ))}
           </div>

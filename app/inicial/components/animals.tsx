@@ -22,9 +22,6 @@ export default function Animals() {
               Pet <span className="text-[#4a2f20]">Shop</span> produtos de qualidade
             </h1>
           </div>
-          <button className="bg-[#4a2f20] hover:bg-[#352014] text-white px-8 py-4 rounded font-semibold transition-colors whitespace-nowrap self-start md:self-auto">
-            Veja nosso trabalho
-          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
