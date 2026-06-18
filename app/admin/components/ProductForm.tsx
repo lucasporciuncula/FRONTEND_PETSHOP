@@ -3,18 +3,11 @@ import Image from "next/image";
 import { Products } from "@/app/types/productsType";
 import { modoAtivado } from "../page";
 import { useProducts } from "@/app/hooks/useProducts";
+import ImageSelectionModal from "./ImageSelectionModal";
 
-export const InputField = ({
-  label,
-  name,
-  value,
-  onChange,
-  type = "text",
-}: any) => (
+export const InputField = ({ label, name, value, onChange, type = "text" }: any) => (
   <div className="flex flex-col gap-1.5">
-    <label className="text-[#8C7A6B] text-[10px] font-bold uppercase tracking-wider">
-      {label}
-    </label>
+    <label className="text-[#8C7A6B] text-[10px] font-bold uppercase tracking-wider">{label}</label>
     <input
       name={name}
       type={type}
@@ -35,12 +28,7 @@ interface ProductFormProps {
 
 type ProductFormData = Omit<Products, "id"> & { id?: number };
 
-export default function ProductForm({
-  mode,
-  initialData,
-  onSubmit,
-  onCancel,
-}: ProductFormProps) {
+export default function ProductForm({ mode, initialData, onSubmit, onCancel }: ProductFormProps) {
   const [formData, setFormData] = useState<ProductFormData>({
     label: "",
     description: "",
@@ -50,43 +38,33 @@ export default function ProductForm({
     image: "",
   });
 
+  const { products } = useProducts();
+  const [openedImages, setOpenImages] = useState(false);
+
   useEffect(() => {
     if (mode === "editar" && initialData) {
       setFormData(initialData);
     } else {
-      setFormData({
-        label: "",
-        description: "",
-        price: 0,
-        animal: "",
-        categoria: "",
-        image: "",
-      });
+      setFormData({ label: "", description: "", price: 0, animal: "", categoria: "", image: "" });
     }
   }, [mode, initialData]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "number" ? Number(value) : value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: type === "number" ? Number(value) : value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (mode === "criar") {
-      onSubmit({ ...(formData as Products), id: Date.now() });
-    } else {
-      onSubmit({ ...(formData as Products), id: initialData?.id || 0 });
-    }
+    onSubmit({ ...(formData as Products), id: mode === "criar" ? Date.now() : initialData?.id || 0 });
     onCancel();
   };
 
-  const { products } = useProducts();
-
-  const [openedImages, setOpenImages] = useState(false);
-  const [image, setImage] = useState("");
+  // Função que o Modal vai chamar quando o usuário confirmar a imagem
+  const handleSelectImage = (imageName: string) => {
+    setFormData((prev) => ({ ...prev, image: imageName }));
+    setOpenImages(false);
+  };
 
   return (
     <div className="w-full bg-white border border-[#E8E3DD] rounded-3xl p-8 flex flex-col gap-6 shadow-xl">
@@ -94,88 +72,55 @@ export default function ProductForm({
         {mode === "criar" ? " Criando Novo Produto" : " Editando Produto"}
       </h4>
 
-      {openedImages ? (
-        <div className=" justify-center items-center inset-0 w-screen h-screen">
-          <div className="w-screen h-screen bg-white opacity-30">
-            <div className="w-150 h-100 border border-gray-700 bg-white rounded-2xl">
-              Selecione a Imagem
-              {products.map((prod) => (
-                <div className="flex flex-col flex-3 gap-2">
-                  <Image
-                    src={`/images/products/${prod?.animal}/${prod?.image}.jpg`}
-                    alt={prod?.label||"imagem sem titulo"}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* COMPONENTE DO MODAL ISOLADO */}
+      <ImageSelectionModal
+        isOpen={openedImages}
+        onClose={() => setOpenImages(false)}
+        onConfirm={handleSelectImage}
+        products={products}
+        currentImage={formData.image}
+      />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {mode === "editar" && initialData?.image && (
+        {/* Container da Imagem Principal (Clicável) */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-[#8C7A6B] text-[10px] font-bold uppercase tracking-wider">
+            Imagem do Produto (Clique para alterar)
+          </label>
           <div
-            className="relative w-full h-70 bg-[#F5F2EC] rounded-2xl mb-2 border border-[#E8E3DD] object-cover transition-transform duration-500 hover:scale-90  overflow-hidden group shadow-md cursor-pointer hover:overflow-visible"
-            onClick={() => setOpenImages(!openedImages)}
+            className="relative w-full h-70 bg-[#F5F2EC] rounded-2xl mb-2 border-2 border-dashed border-[#acaaa9] hover:border-[#4A3728] flex items-center justify-center transition-all duration-300 overflow-hidden group shadow-sm cursor-pointer"
+            onClick={() => setOpenImages(true)}
           >
-            <Image
-              src={`/images/products/${formData.animal}/${formData.image}.jpg`}
-              alt={formData.label}
-              fill
-              className="object-contain"
-            />
-            <Image
-              src="/images/chocolat/adicionar.png"
-              alt="Imagem de cima"
-              width={355}
-              height={355}
-              className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-50 pl-22"
-            />
+            {formData.image && formData.animal ? (
+              <>
+                <Image
+                  src={`/images/products/${formData.animal}/${formData.image}.jpg`}
+                  alt={formData.label || "Imagem do Produto"}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-95"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white font-bold gap-2">
+                  Trocar Imagem
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-[#8C7A6B] gap-2">
+                <span className="text-sm font-bold">Clique para selecionar uma imagem</span>
+              </div>
+            )}
           </div>
-        )}
-
-        <div className="grid grid-cols-2 gap-4">
-          <InputField
-            label="Animal"
-            name="animal"
-            value={formData.animal}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Categoria"
-            name="categoria"
-            value={formData.categoria}
-            onChange={handleChange}
-          />
         </div>
 
-        <InputField
-          label="Nome"
-          name="label"
-          value={formData.label}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Imagem (nome do produto + .jpg)"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Descrição"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Preço"
-          name="price"
-          type="number"
-          value={formData.price}
-          onChange={handleChange}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <InputField label="Animal" name="animal" value={formData.animal} onChange={handleChange} />
+          <InputField label="Categoria" name="categoria" value={formData.categoria} onChange={handleChange} />
+        </div>
+
+        <InputField label="Nome" name="label" value={formData.label} onChange={handleChange} />
+        <InputField label="Imagem (nome do arquivo)" name="image" value={formData.image} onChange={handleChange} />
+        <InputField label="Descrição" name="description" value={formData.description} onChange={handleChange} />
+        <InputField label="Preço" name="price" type="number" value={formData.price} onChange={handleChange} />
+        
         <div className="flex gap-3 mt-4 pt-4 border-t border-[#E8E3DD]">
           <button
             type="button"
