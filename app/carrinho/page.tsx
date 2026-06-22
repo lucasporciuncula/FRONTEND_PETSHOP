@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useProducts } from "../hooks/useProducts";
 export default function Carrinho() {
 
-    // const {}
+    const {products} = useProducts()
 
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen bg-[#FAFAF8] font-sans">
@@ -63,12 +64,12 @@ export default function Carrinho() {
 
       {/* 3. LISTA DE PRODUTOS DA ORDER (.MAP) */}
       <div className="w-full max-w-7xl px-8 sm:px-16 py-8 flex flex-col gap-6 flex-1">
-        {itensFicticios.length === 0 ? (
+        {products.length === 0 ? (
           <div className="text-center py-12 text-gray-400 text-lg">Seu carrinho está vazio.</div>
         ) : (
-          itensFicticios.map((item) => (
+          products.map((item) => (
             <div 
-              key={item.id} 
+              key={item?.id} 
               className="w-full flex items-center justify-between border-b border-gray-200 pb-6 last:border-none"
             >
               {/* Bloco da Esquerda: Imagem + Detalhes */}
@@ -82,13 +83,13 @@ export default function Carrinho() {
                 
                 <div className="flex flex-col gap-1">
                   <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
-                    {item.categoria}
+                    {item?.categoria}
                   </span>
                   <h3 className="text-lg font-bold text-[#4A3728]">
-                    {item.nome}
+                    {item?.label}
                   </h3>
                   <span className="text-sm text-gray-500">
-                    Preço unitário: R$ {item.preco.toFixed(2)}
+                    Preço unitário: R$ {item?.price.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -96,10 +97,10 @@ export default function Carrinho() {
               {/* Bloco da Direita: Quantidade + Preço Total do Item */}
               <div className="flex flex-col items-end gap-2 text-right">
                 <div className="px-3 py-1 border border-gray-300 bg-white text-gray-700 text-sm font-semibold rounded">
-                  Qtd: {item.quantidade}
+                  Qtd: {item?.}
                 </div>
                 <span className="text-xl font-extrabold text-[#4A3728]">
-                  R$ {(item.preco * item.quantidade).toFixed(2)}
+                  R$ {(item?.preco * item?.quantidade).toFixed(2)}
                 </span>
               </div>
             </div>

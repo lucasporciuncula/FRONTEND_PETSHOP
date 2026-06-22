@@ -177,6 +177,7 @@ export default function Header() {
             </div>
           )}
 
+
           {isDropdownOpen && suggestions.length === 0 && (
             <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-sm text-gray-500 text-center">
               Nenhum produto encontrado para {searchTerm}
