@@ -10,25 +10,45 @@ import AdminFilters from "./components/AdminFilters";
 import ProductDetails from "./components/ProductDetails";
 import ProductForm from "./components/ProductForm";
 import { Products } from "../types/productsType";
+import { LogOut } from "lucide-react";
 
 export type modoAtivado = "olhar" | "criar" | "editar"
 
 export default function Admin() {
   const { product, setProduct } = useProductContext();
   const { products, createProduct, deleteProduct, updateProduct } = useProducts();
-  const { user } = useAuthContext();
   const router = useRouter();
 
   // Estados com tipagem inferida e explícita
   const [selectedAnimal, setSelectedAnimal] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [mode, setModoAtivado] = useState<modoAtivado>("olhar");
+  // Altere o useEffect de validação do Admin para isto:
+  const { user, loading, logout } = useAuthContext(); // Adicione 'loading' aqui se necessário
 
   useEffect(() => {
-    if (user !== "ADMIN") {
-      router.push("/Produtos");
-    }
-  }, [user, router]);
+  // 1. Se ainda estiver no carregamento inicial do contexto, para aqui.
+  if (loading) return; 
+
+  // 2. Se o user não existe na memória (ainda é null ou undefined),
+  // significa que o Context ainda está buscando no sessionStorage. Não faz nada.
+  if (!user) return;
+
+  // 3. Se o user existe, mas a propriedade role veio indefinida (objeto incompleto),
+  // também espera o estado estabilizar.
+  if (user.role === undefined) return;
+
+  // 4. SÓ EXPULSA se o usuário estiver totalmente carregado E a role dele for diferente de ADMIN
+  if (user.role !== "ADMIN") {
+    router.push("/Produtos");
+  }
+  
+}, [user, loading, router]);
+
+  // Se ainda estiver carregando os dados do sessionStorage, mostra uma tela vazia ou um loading
+  if (loading) {
+    return <div className="p-8">Carregando painel...</div>;
+  }
 
   const filteredProducts = products
     .filter((p) => p?.animal === selectedAnimal || selectedAnimal === "all")
@@ -53,6 +73,12 @@ export default function Admin() {
         </div>
 
         <div className="flex gap-3">
+          <button
+            onClick={() => logout()}
+            className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#4A3728] hover:bg-[#38291e] text-white shadow-md flex"
+          >
+            <LogOut size={20} color="white" /> Sair
+          </button>
           <button
             onClick={() => { setModoAtivado("criar"); setProduct(null); }}
             className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#4A3728] hover:bg-[#38291e] text-white shadow-md"

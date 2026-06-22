@@ -12,6 +12,7 @@ export function useProducts() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!sessionStorage.getItem("token")) return;
     const getAllProducts = async () => {
       //pega as categorias do server aberto
       try {

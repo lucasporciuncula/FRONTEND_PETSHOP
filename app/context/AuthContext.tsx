@@ -35,13 +35,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedProfile = sessionStorage.getItem("profile");
     const storedUser = sessionStorage.getItem("user");
 
-    setToken(storedToken); //NAO MECHER TA DANDO CERTO CONFIA *******
-    setProfile(storedProfile);
-    setUser(storedUser ? JSON.parse(storedUser) : user);
+    setToken(storedToken); 
+  setProfile(storedProfile);
+  // Garante que se não houver usuário logado, o estado fique estritamente null
+  setUser(storedUser ? JSON.parse(storedUser) : null);
 
-    setLoading(false);
-    
-  }, []);
+  setLoading(false);
+}, []);
   
 
   const login = (newToken: string, newProfile: string, newUser: User) => {
@@ -57,16 +57,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("profile");
-    sessionStorage.removeItem("user");
+  // 1. Limpa o storage primeiro
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("profile");
+  sessionStorage.removeItem("user");
 
-    setToken(null);
-    setProfile(null);
-    setUser(null);
+  // 2. Reseta os estados imediatamente
+  setToken(null);
+  setProfile(null);
+  setUser(null);
 
-    router.replace("/login");
-  };
+  // 3. SÓ AGORA redireciona
+  router.replace("/login");
+};
 
   return (
     <AuthContext.Provider

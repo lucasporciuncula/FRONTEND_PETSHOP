@@ -4,7 +4,7 @@ import Banner from "./components/Banner";
 import Categories from "./components/Categorias";
 import Header from "./components/Header";
 import Produto from "./components/products";
-import { ThemeProvider } from "../context/ThemeContext" 
+import { ThemeProvider } from "../context/ThemeContext"
 import { useAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -12,15 +12,16 @@ import { useRouter } from "next/navigation";
 
 export default function Produtos() {
 
-    const { user } = useAuthContext();
-    const router = useRouter();
-  
-    useEffect(() => {
-      // Se o contexto já carregou e o usuário é admin, barra ele
-      if (user !== "DEFAULT") {  ///NAO MUDA ISSO TA DANDO CERTO
-        router.push("/admin"); // Manda de volta para os produtos
-      }
-    }, [user, router]);
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  // Altere o useEffect da página de Produtos para isto:
+  useEffect(() => {
+    // Se o usuário estiver logado e for um ADMIN, manda ele para a página de admin
+    if (user && user.role === "ADMIN") {
+      router.push("/admin");
+    }
+  }, [user, router]);
 
   return (
     <ThemeProvider>
