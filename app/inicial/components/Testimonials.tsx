@@ -27,7 +27,7 @@ export default function Testimonials() {
         <div className="relative">
           <button
             onClick={handlePrev}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-gray-50 text-gray-700 border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95 invisible sm:visible"
+            className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-[#664533] text-gray-700 hover:text-white border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all duration-200 active:scale-95 invisible sm:visible"
             aria-label="Previous testimonial"
           >
             &#10094;
@@ -44,7 +44,7 @@ export default function Testimonials() {
 
             <button
               onClick={handleNext}
-              className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-gray-50 text-gray-700 border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95 invisible sm:visible"
+              className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white hover:bg-[#664533] text-gray-700 hover:text-white border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all duration-200 active:scale-95 invisible sm:visible"
               aria-label="Next testimonial"
             >
               &#10095;

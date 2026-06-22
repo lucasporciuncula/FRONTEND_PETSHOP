@@ -15,13 +15,13 @@ export default function Login() {
     return (
     <div 
       className="flex min-h-screen items-center justify-center bg-[#63783D] bg-cover bg-center bg-no-repeat px-4 font-sans"
-      style={{ backgroundImage: "url('/images/banner3.png')" }}
+      style={{ backgroundImage: "url('/images/banner5.png')" }}
     >
       
-      <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-[#63783D] transition-all">
+      <div className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow-2xl border-2 border-[#664533] transition-all">
         <div className="text-center">
           <div className="flex justify-center items-center gap-2 text-3xl font-black tracking-widest text-white">
-            <span className="text-black font-bold uppercase">Criar</span><span className="text-[#63783D] font-bold uppercase">Conta</span>
+            <span className="text-black font-bold uppercase">Criar</span><span className="text-[#664533] font-bold uppercase">Conta</span>
           </div>
           <p className="mt-2 text-sm text-gray-400">
             Insira seus dados para criar sua conta.
@@ -40,7 +40,7 @@ export default function Login() {
                 value={name}
                 onChange={(e)=>{setName(e.target.value)}}
                 required
-                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[#63783D] focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm"
                 placeholder="Seu nome completo"
                 
               />
@@ -55,7 +55,7 @@ export default function Login() {
                 value={email}
                 onChange={(e)=>{setEmail(e.target.value)}}
                 required
-                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[#63783D] focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm"
                 placeholder="seu@email.com"
                 
               />
@@ -73,7 +73,7 @@ export default function Login() {
                 value={password}
                 onChange={(e)=>{setPassword(e.target.value)}}
                 required
-                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm focus:border-[#63783D] focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+                className="mt-1 w-full rounded-lg bg-[#222222] border border-neutral-700 px-4 py-3 text-white placeholder-gray-500 shadow-sm"
                 placeholder="••••••••"
                 
               />
@@ -90,7 +90,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#63783D] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#437a4d] active:scale-95 uppercase tracking-wider transition-all duration-100 hover:shadow-md "
+              className="w-full rounded-lg bg-[#664533] py-3 text-sm font-bold text-white shadow-lg hover:bg-[#7c5540] active:scale-95 uppercase tracking-wider transition-all duration-100 hover:shadow-md "
             >
               Entrar
             </button>
@@ -98,7 +98,7 @@ export default function Login() {
         </form>
 
         <p className="text-center text-sm text-gray-400 mt-4">
-          <a href="/login" className="text-[#63783D] font-medium hover:underline">
+          <a href="/login" className="text-[#664533] font-medium hover:underline">
             Voltar à página de login
           </a>
         </p>
