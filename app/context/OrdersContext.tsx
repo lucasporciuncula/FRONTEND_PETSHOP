@@ -1,7 +1,12 @@
 "use client";
 
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import { useAuthContext } from "./AuthContext";
+import { IncrementalCache } from "next/dist/server/lib/incremental-cache";
+import { User } from "../types/Users";
+
 export interface CartItem {
-  id: string;
+  id: number;
   label: string;
   price: number;
   image: string;
@@ -11,31 +16,22 @@ export interface CartItem {
 }
 
 export interface Order {
-  id: string;
-  userId: string;
-  customerEmail: string;
-  customerPhone: string;
-  address: string;
+  userId: string|null
+  customerEmail: string|null
   items: CartItem[];
-  subtotal: number;
-  deliveryFee: number;
   total: number;
-  statusHistory: StatusHistory[];
   createdAt: string; 
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  orders: Order[]; // Adicionado estado de pedidos
-  addToCart: (product: any) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, amount: number) => void;
-  isCartOpen: boolean;
-  setIsCartOpen: (isOpen: boolean) => void;
-  isOrdersOpen: boolean;
-  setIsOrdersOpen: (isOpen: boolean) => void;
+  orders: Order[]; 
+  addToCart: (product: CartItem) => void;
+  removeFromCart: (id: number) => void;
+  updateQuantity: (id: number, amount: number) => void;
   cartTotal: number;
   cleanCart:()=>void
+  setOrders: Dispatch<SetStateAction<Order[]>>
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -43,15 +39,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const { user } = useAuthContext(); // Pega as informações do usuário logado do seu AuthContext
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [orders, setOrders] = useState<Order[]>([]); // Estado local que guarda os pedidos temporariamente
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false); 
+  const [orders, setOrders] = useState<Order[]>([])
+
+  const makeOrder = (items:CartItem[],total:number, date:string, user:User|null) => {
+    setOrders((prev)=>[...prev,{ items, total,createdAt:date, userId:user, customerEmail:user?.email}])
+  }
 
   const cleanCart = () => {
     setCartItems([])
   }
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: CartItem) => {
     if (!product.id) {
       console.error("Erro: O produto adicionado não possui um 'id' válido.", product);
       return;
@@ -62,16 +60,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       if (exists) {
         return prev.map((item) =>
-          String(item.id) === String(product.id)
+          item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        );
+        )
       }
       return [...prev, { ...product, quantity: 1 }];
     });
   };
 
-  const updateQuantity = (id: string, amount: number) => {
+  const updateQuantity = (id: number, amount: number) => {
     setCartItems((prev) =>
       prev
         .map((item) =>
@@ -81,7 +79,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  const removeFromCart = (id: string) => {
+  const removeFromCart = (id: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -95,10 +93,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addToCart,
         removeFromCart,
         updateQuantity,
-        isCartOpen,
-        setIsCartOpen,
-        isOrdersOpen,
-        setIsOrdersOpen,
         cartTotal,
         cleanCart
       }}
