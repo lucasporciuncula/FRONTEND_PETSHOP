@@ -2,8 +2,7 @@
 
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useAuthContext } from "./AuthContext";
-import { IncrementalCache } from "next/dist/server/lib/incremental-cache";
-import { User } from "../types/Users";
+import { useProducts } from "../hooks/useProducts";
 
 export interface CartItem {
   id: number;
@@ -11,27 +10,29 @@ export interface CartItem {
   price: number;
   image: string;
   quantity: number;
-  categoria:string
-  animal:string
+  categoria: string
+  animal: string
 }
 
 export interface Order {
-  userId: string|null
-  customerEmail: string|null
+  userId: string | null
+  customerEmail: string | null
   items: CartItem[];
   total: number;
-  createdAt: string; 
+  createdAt: string;
+  isDelivery : boolean
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  orders: Order[]; 
-  addToCart: (product: CartItem) => void;
+  orders: Order[];
+  addToCart: (product: number) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, amount: number) => void;
   cartTotal: number;
-  cleanCart:()=>void
+  cleanCart: () => void
   setOrders: Dispatch<SetStateAction<Order[]>>
+  makeOrder: (isDelivery:boolean) => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -40,32 +41,61 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const { user } = useAuthContext(); // Pega as informações do usuário logado do seu AuthContext
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([])
+  const { products } = useProducts()
 
-  const makeOrder = (items:CartItem[],total:number, date:string, user:User|null) => {
-    setOrders((prev)=>[...prev,{ items, total,createdAt:date, userId:user, customerEmail:user?.email}])
+  const makeOrder = (isDelivery:boolean) => {
+    setOrders((prev) => [...prev, {
+      userId: user?.id ?? null,
+      customerEmail: user?.email ?? null,
+      items: cartItems,
+      total: cartTotal,
+      createdAt: (new Date().toISOString()),
+      isDelivery
+    }])
+    cleanCart()
   }
 
   const cleanCart = () => {
     setCartItems([])
   }
 
-  const addToCart = (product: CartItem) => {
-    if (!product.id) {
-      console.error("Erro: O produto adicionado não possui um 'id' válido.", product);
-      return;
-    }
+  const addToCart = (product: number) => {
+  if (!product) {
+    console.error("Erro: O ID do produto adicionado não é válido.", product);
+    return;
+  }
 
     setCartItems((prev) => {
-      const exists = prev.find((item) => String(item.id) === String(product.id));
+      const exists = prev.find((item) => item.id === product);
 
       if (exists) {
         return prev.map((item) =>
-          item.id === product.id
+          item.id === product
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
-      return [...prev, { ...product, quantity: 1 }];
+      const prdu = products.find((pro) => pro?.id === product);
+
+// 1. Verifique se o produto realmente existe
+if (!prdu) {
+  console.error("Produto não encontrado na lista global");
+  return prev; 
+}
+
+// 2. Garanta que as propriedades obrigatórias existem para satisfazer o CartItem
+return [
+  ...prev, 
+  { 
+    id: prdu.id!, // O ! diz ao TS: "eu garanto que isso não é undefined"
+    label: prdu.label ?? "Produto sem nome",
+    price: prdu.price ?? 0,
+    image: prdu.image ?? "",
+    categoria: prdu.categoria ?? "",
+    animal: prdu.animal ?? "",
+    quantity: 1 
+  }
+];
     });
   };
 
@@ -73,7 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCartItems((prev) =>
       prev
         .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + amount } : item
+          item.id === id ? { ...item, quantity: amount } : item
         )
         .filter((item) => item.quantity > 0)
     );
@@ -94,7 +124,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         removeFromCart,
         updateQuantity,
         cartTotal,
-        cleanCart
+        cleanCart,
+        makeOrder,
+        setOrders
       }}
     >
       {children}

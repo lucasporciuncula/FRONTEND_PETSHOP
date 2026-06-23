@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { ProductProvider } from "./context/ProductsContext";
+import { CartProvider } from "./context/OrdersContext";
 
 export const metadata: Metadata = {
   title: "PetShop",
@@ -16,12 +17,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased">
-        <AuthProvider>
-          <ProductProvider>
-            <UserProvider>{children}</UserProvider>
-          </ProductProvider>
-        </AuthProvider>
+      <body className="antialiased"> <ProductProvider><AuthProvider>
+        <CartProvider>
+         
+            
+              <UserProvider>
+                {children}
+              </UserProvider>
+            
+         
+        </CartProvider> </AuthProvider></ProductProvider>
       </body>
     </html>
   );

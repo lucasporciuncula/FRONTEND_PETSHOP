@@ -1,3 +1,5 @@
+import useCategories from "@/app/hooks/useCategories";
+
 export interface AdminFiltersProps {
   selectedAnimal: string;
   setSelectedAnimal: (animal: string) => void;
@@ -12,22 +14,7 @@ export default function AdminFilters({
   setSelectedCategory
 }: AdminFiltersProps) {
 
-  const animals = [
-    { id: "all", label: "Todos" },
-    { id: "dog", label: "Cachorros" },
-    { id: "cat", label: "Gatos" },
-  ];
-
-  const categories = [
-    { id: "all", label: "Todos" },
-    { id: "bed", label: "Camas" },
-    { id: "food", label: "Alimentação" },
-    { id: "transport", label: "Transporte" },
-    { id: "toy", label: "Brinquedos" },
-    { id: "hygiene", label: "Higiene" },
-    { id: "medicine", label: "Medicamentos" },
-    { id: "shampoo", label: "Shampoos" },
-  ];
+  const { animals, categories } = useCategories()
 
   const ButtonStyle = (isActive: boolean) =>
     `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 ${isActive

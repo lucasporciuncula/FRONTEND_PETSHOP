@@ -1,6 +1,8 @@
 "use client";
 
+import { useCart } from "@/app/context/OrdersContext";
 import { useProductContext } from "@/app/context/ProductsContext";
+import useCategories from "@/app/hooks/useCategories";
 import { useProducts } from "@/app/hooks/useProducts";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,31 +11,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Produto() {
-    
+
     const { setProduct } = useProductContext();
     const { products } = useProducts();
+    const { addToCart } = useCart()
     const router = useRouter(); // Inicializa o roteador
+    const {animals, categories} = useCategories()
 
-    const [selectedAnimal,setSelectedAnimal] = useState("all")
+    const [selectedAnimal, setSelectedAnimal] = useState("all")
 
-    const [selectedCategory,setSelectedCategory] = useState("all")
-
-    const animals = [
-        { id: "all", label: "Todos" },
-        { id: "dog", label: "Cachorros" },
-        { id: "cat", label: "Gatos" },
-    ];
-
-    const categories = [
-        { id: "all", label: "Todos" },
-        { id: "bed", label: "Camas" },
-        { id: "food", label: "Alimentação" },
-        { id: "transport", label: "Transporte" },
-        { id: "toy", label: "Brinquedos" },
-        { id: "hygiene", label: "Higiene" },
-        { id: "medicine", label: "Medicamentos" },
-        { id: "shampoo", label: "Shampoos" },
-    ];
+    const [selectedCategory, setSelectedCategory] = useState("all")
 
     const ButtonStyle = (isActive: boolean) =>
         `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 ${isActive
@@ -41,11 +28,11 @@ export default function Produto() {
             : "bg-white text-[#4A3728] hover:bg-[#F5F2EC] border border-[#E8E3DD]"
         }`;
 
-    
-const produ = products.filter((p) => 
-  (selectedCategory === "all" || p?.categoria === selectedCategory) && 
-  (selectedAnimal === "all" || p?.animal === selectedAnimal)
-);
+
+    const produ = products.filter((p) =>
+        (selectedCategory === "all" || p?.categoria === selectedCategory) &&
+        (selectedAnimal === "all" || p?.animal === selectedAnimal)
+    );
     return (
         <section className="py-12 bg-gray-50/50">
             <div className="max-w-7xl mx-auto px-4">
@@ -86,15 +73,15 @@ const produ = products.filter((p) =>
                         <div
                             key={item?.id}
                             className="bg-white rounded-2xl p-4 border border-gray-100 relative group shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                            onClick={() => {
+
+                        >
+                            {/* Resto do seu código do card de produto continua igual... */}
+                            <div className="relative w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4" onClick={() => {
                                 // 1. Salva no contexto
                                 setProduct(item);
                                 // 2. Navega para a página do item
                                 router.push(`/item/${item?.label}`);
-                            }}
-                        >
-                            {/* Resto do seu código do card de produto continua igual... */}
-                            <div className="relative w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
+                            }}>
                                 <Image
                                     src={`/images/products/${item?.animal}/${item?.image}.jpg`}
                                     alt={item?.image || "nome da imagem"}
@@ -111,7 +98,10 @@ const produ = products.filter((p) =>
                                 </Link>
                                 <h4 className="text-lg font-bold text-[#030302]">R${item?.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</h4>
                                 <div className="flex items-center gap-2 pt-2">
-                                    <button className="flex-1 bg-gray-900 hover:bg-[#DEAD6F] text-white text-xs uppercase font-bold py-3 rounded transition-colors">
+                                    <button
+                                        className="flex-1 bg-gray-900 hover:bg-[#DEAD6F] text-white text-xs uppercase font-bold py-3 rounded transition-colors"
+                                        onClick={() => addToCart(item?.id ?? 1)}
+                                    >
                                         Adicionar
                                     </button>
                                 </div>
