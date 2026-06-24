@@ -200,15 +200,11 @@ export default function Carrinho() {
               R$ {cartTotal}
             </span>
           </div>
-          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>makeOrder(false)}>
-            Retirar na loja
-          </button>
-          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>makeOrder(true)}>
-            Receber em casa
+          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>}>
+            Comprar
           </button>
         </div>
       </div>
-
     </div>
   );
 }
