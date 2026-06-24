@@ -170,7 +170,7 @@ export default function Carrinho() {
                 ))}
             </div>
 
-            <div className="text-white border-[#4A3728]  border font-extrabold bg-[#4A3728] rounded-3xl p-2 px-5 m-15" >{selectedModo!=="dinheiro"?'Continuar Pagamento':"Pagamento na hora"}</div>
+            <div className="text-white border-[#4A3728]  border font-extrabold bg-[#4A3728] rounded-3xl p-2 px-5 m-15" >{selectedModo==="dinheiro"&&"Pagamento na hora"}{selectedModo&&selectedModo!=="dinheiro"&&"Continuar Pagamento"}{!selectedModo&&"Escolha um modo de Pagamento"}</div>
 
 
             {/* 4. RODAPÉ DE FINALIZAÇÃO DA COMPRA (Faixa bege com botão Comprar à direita) */}

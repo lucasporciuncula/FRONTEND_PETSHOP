@@ -42,6 +42,7 @@ export default function Carrinho() {
   };
 
   const handleNext = () =>{
+    if(cartItems[0]===undefined){return}
     router.push("/pagamento")
   }
 

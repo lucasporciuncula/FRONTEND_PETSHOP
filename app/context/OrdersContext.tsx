@@ -56,7 +56,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       isDelivery
     }])
     cleanCart()
-    router.push("/pagamento")
+    router.push("/Produtos")
   }
 
   const cleanCart = () => {
@@ -80,23 +80,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
         )
       }
       const prdu = products.find((pro) => pro?.id === product);
-
-// 1. Verifique se o produto realmente existe
+      
 if (!prdu) {
   console.error("Produto não encontrado na lista global");
   return prev; 
 }
-
-// 2. Garanta que as propriedades obrigatórias existem para satisfazer o CartItem
 return [
   ...prev, 
   { 
-    id: prdu.id!, // O ! diz ao TS: "eu garanto que isso não é undefined"
-    label: prdu.label ?? "Produto sem nome",
-    price: prdu.price ?? 0,
-    image: prdu.image ?? "",
-    categoria: prdu.categoria ?? "",
-    animal: prdu.animal ?? "",
+    id: prdu.id!,
+    label: prdu.label,
+    price: prdu.price,
+    image: prdu.image,
+    categoria: prdu.categoria,
+    animal: prdu.animal,
     quantity: 1 
   }
 ];

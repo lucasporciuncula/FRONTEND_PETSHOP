@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Star, ChevronDown } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useProductContext } from "@/app/context/ProductsContext";
 import { useProducts } from "@/app/hooks/useProducts";
-import { Products } from "@/app/types/productsType";
+import { useCart } from "@/app/context/OrdersContext";
 
 export default function ItemPage() {
   const router = useRouter(); // Inicializa o roteador
 
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
   const params = useParams();
   
   const buttonClickCart = () => {
@@ -34,6 +34,8 @@ export default function ItemPage() {
       }
     }
   }, [params, product, products, setProduct]);
+
+  const {addToCart, cartItems} = useCart()
 
   // Tela de carregamento (precisa vir antes de tentar calcular os produtos relacionados)
   if (!product) {
@@ -74,7 +76,7 @@ export default function ItemPage() {
             <button className="border border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-medium px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm" type="button" onClick={buttonClickCart}>
               <ShoppingCart className="w-4 h-4" />
               <span>Cart</span>
-              <span className="bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+              <span className="bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">{cartItems.length}</span>
             </button>
           </div>
         </div>
@@ -109,14 +111,14 @@ export default function ItemPage() {
 
               {/* Controles de Compra */}
               <div className="flex items-center gap-4 pt-4">
-                <input
+                {/* <input
                   className="w-16 border border-gray-300 rounded-lg px-2 py-2.5 text-center focus:outline-none focus:border-gray-900 text-sm font-semibold"
                   id="inputQuantity"
                   type="number"
                   value={quantity}
                   onChange={(e) => { if (quantity > 0 && !(e.target.valueAsNumber < 1)) { setQuantity(Number(e.target.value)) } }}
-                />
-                <button className="border border-gray-900 bg-white hover:bg-gray-900 text-gray-900 hover:text-white font-bold px-6 py-2.5 rounded-lg flex items-center gap-2 transition-all text-sm shrink-0" type="button">
+                /> */}
+                <button className="border border-gray-900 bg-white hover:bg-gray-900 text-gray-900 hover:text-white font-bold px-6 py-2.5 rounded-lg flex items-center gap-2 transition-all text-sm shrink-0" type="button" onClick={()=>addToCart(product.id)}>
                   <ShoppingCart className="w-4 h-4" />
                   Adicionar ao carrinho
                 </button>
@@ -134,24 +136,24 @@ export default function ItemPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
 
             {relatedProducts.map((rel) => (
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col h-full" key={rel?.id} onClick={() => {
+              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col h-full" key={rel?.id} >
+                <div className="w-full relative h-48">
+                  <Image src={`/images/products/${rel?.animal}/${rel?.image}.jpg`} alt="..." fill className="object-cover" onClick={() => {
                 // 1. Salva no contexto
                 setProduct(rel); 
                 // 2. Navega para a página do item
                 router.push(`/item/${rel?.label}`);
-              }}>
-                <div className="w-full relative h-48">
-                  <Image src={`/images/products/${rel?.animal}/${rel?.image}.jpg`} alt="..." fill className="object-cover" />
+              }}/>
                 </div>
                 <div className="p-4 grow flex flex-col justify-between text-center">
                   <div className="space-y-1 my-2">
                     <h5 className="font-bold text-gray-900">{rel?.label}</h5>
                     <p className="text-sm text-gray-600">{rel?.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</p>
                   </div>
-                  <div className="pt-4">
-                    <Link className="block border border-gray-900 hover:bg-gray-900 text-gray-900 hover:text-white text-xs font-bold py-2 rounded-lg transition-colors" href="#">
-                      View options
-                    </Link>
+                  <div className="pt-4 items-center justify-center">
+                    <button className="border border-gray-900 hover:bg-gray-900 text-gray-900 hover:text-white text-xs font-bold py-2 rounded-lg transition-colors flex gap-2 p-12 items-center" onClick={()=>addToCart(rel?.id??0)}>
+                      <ShoppingCart className="w-4 h-4" />Adicioinar ao Carrinho
+                    </button>
                   </div>
                 </div>
               </div>
