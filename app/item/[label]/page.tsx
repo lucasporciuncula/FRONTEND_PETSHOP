@@ -13,7 +13,11 @@ export default function ItemPage() {
   const router = useRouter(); // Inicializa o roteador
 
   const [quantity, setQuantity] = useState(1);
-  const params = useParams(); 
+  const params = useParams();
+  
+  const buttonClickCart = () => {
+    router.push('/carrinho');
+  };
 
   const { product, setProduct } = useProductContext();
   const { products } = useProducts();
@@ -66,13 +70,13 @@ export default function ItemPage() {
           </div>
 
           {/* Carrinho */}
-          <form className="flex items-center">
-            <button className="border border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-medium px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm" type="submit">
+          <div className="flex items-center">
+            <button className="border border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-medium px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm" type="button" onClick={buttonClickCart}>
               <ShoppingCart className="w-4 h-4" />
               <span>Cart</span>
               <span className="bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
             </button>
-          </form>
+          </div>
         </div>
       </nav>
 

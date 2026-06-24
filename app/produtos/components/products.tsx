@@ -72,10 +72,8 @@ export default function Produto() {
                     {produ.map((item) => (
                         <div
                             key={item?.id}
-                            className="bg-white rounded-2xl p-4 border border-gray-100 relative group shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-
-                        >
-                            {/* Resto do seu código do card de produto continua igual... */}
+                            className="bg-white rounded-2xl p-4 border border-gray-100 relative group shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                                
                             <div className="relative w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4" onClick={() => {
                                 // 1. Salva no contexto
                                 setProduct(item);

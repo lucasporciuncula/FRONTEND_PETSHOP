@@ -10,8 +10,7 @@ export default function Login() {
     const {handleCadastro} = useUser()
     const [error, setError] = useState("");
    
-
-
+    
     return (
     <div 
       className="flex min-h-screen items-center justify-center bg-[#63783D] bg-cover bg-center bg-no-repeat px-4 font-sans"
