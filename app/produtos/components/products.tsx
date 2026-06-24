@@ -6,7 +6,6 @@ import useCategories from "@/app/hooks/useCategories";
 import { useProducts } from "@/app/hooks/useProducts";
 import Image from "next/image";
 import Link from "next/link";
-// IMPORTANTE: Mude para useRouter
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -15,11 +14,10 @@ export default function Produto() {
     const { setProduct } = useProductContext();
     const { products } = useProducts();
     const { addToCart } = useCart()
-    const router = useRouter(); // Inicializa o roteador
+    const router = useRouter(); 
     const {animals, categories} = useCategories()
 
     const [selectedAnimal, setSelectedAnimal] = useState("all")
-
     const [selectedCategory, setSelectedCategory] = useState("all")
 
     const ButtonStyle = (isActive: boolean) =>
@@ -28,11 +26,11 @@ export default function Produto() {
             : "bg-white text-[#4A3728] hover:bg-[#F5F2EC] border border-[#E8E3DD]"
         }`;
 
-
     const produ = products.filter((p) =>
         (selectedCategory === "all" || p?.categoria === selectedCategory) &&
         (selectedAnimal === "all" || p?.animal === selectedAnimal)
     );
+
     return (
         <section className="py-12 bg-gray-50/50">
             <div className="max-w-7xl mx-auto px-4">
@@ -72,12 +70,12 @@ export default function Produto() {
                     {produ.map((item) => (
                         <div
                             key={item?.id}
-                            className="bg-white rounded-2xl p-4 border border-gray-100 relative group shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                            /* 🌟 ALTERAÇÃO 1: Adicionado 'flex flex-col h-full' para permitir o alinhamento dos filhos */
+                            className="bg-[#ffffff] rounded-2xl p-4 border border-gray-100 relative group shadow-sm hover:shadow-md transition-shadow cursor-pointer flex flex-col h-full"
+                        >
                                 
                             <div className="relative w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-4" onClick={() => {
-                                // 1. Salva no contexto
                                 setProduct(item);
-                                // 2. Navega para a página do item
                                 router.push(`/item/${item?.label}`);
                             }}>
                                 <Image
@@ -88,14 +86,21 @@ export default function Produto() {
                                 />
                             </div>
 
-                            <div className="space-y-2">
+                            {/* 🌟 ALTERAÇÃO 2: Adicionado 'flex-1 flex flex-col' na div de conteúdo para gerenciar o espaçamento vertical interno */}
+                            <div className="space-y-2 flex-1 flex flex-col">
                                 <Link href={`/item/${item?.label}`}>
-                                    <h3 className="text-base font-semibold text-gray-900 hover:text-[#664533] transition-colors">
+                                    {/* 🌟 ALTERAÇÃO 3: Adicionado 'h-12 line-clamp-2' para travar o tamanho em até 2 linhas e alinhar tudo horizontalmente */}
+                                    <h3 className="text-base font-semibold text-gray-900 hover:text-[#664533] transition-colors h-12 line-clamp-2">
                                         {item?.label}
                                     </h3>
                                 </Link>
-                                <h4 className="text-lg font-bold text-[#030302]">R${item?.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</h4>
-                                <div className="flex items-center gap-2 pt-2">
+                                
+                                <h4 className="text-lg font-bold text-[#030302]">
+                                    R${item?.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                                </h4>
+                                
+                                {/* 🌟 ALTERAÇÃO 4: Adicionado 'mt-auto' para forçar o container do botão a ficar sempre no rodapé do card */}
+                                <div className="flex items-center gap-2 pt-2 mt-auto">
                                     <button
                                         className="flex-1 bg-gray-900 hover:bg-[#DEAD6F] text-white text-xs uppercase font-bold py-3 rounded transition-colors"
                                         onClick={() => addToCart(item?.id ?? 1)}
