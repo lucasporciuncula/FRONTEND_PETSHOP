@@ -3,6 +3,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 import { useProducts } from "../hooks/useProducts";
+import { useRouter } from "next/navigation";
 
 export interface CartItem {
   id: number;
@@ -43,6 +44,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<Order[]>([])
   const { products } = useProducts()
 
+  const router = useRouter()
+
   const makeOrder = (isDelivery:boolean) => {
     setOrders((prev) => [...prev, {
       userId: user?.id ?? null,
@@ -53,6 +56,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       isDelivery
     }])
     cleanCart()
+    router.push("/pagamento")
   }
 
   const cleanCart = () => {

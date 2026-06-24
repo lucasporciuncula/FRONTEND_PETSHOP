@@ -44,6 +44,12 @@ export default function Carrinho() {
 
   const { cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart()
 
+  const ButtonStyle = (isActive: boolean) =>
+    `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 ${isActive
+      ? "bg-[#4A3728] text-white shadow-md"
+      : "bg-white text-[#4A3728] hover:bg-[#F5F2EC] border border-[#E8E3DD]"
+    }`;
+
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen bg-[#FAFAF8] font-sans">
 
@@ -128,68 +134,24 @@ export default function Carrinho() {
             Voltar
           </div>
           <h1 className="text-3xl sm:text-4xl text-white font-extrabold">
-            Carrinho
+            Formas de Pagamento
           </h1>
         </div>
-        <button
-          onClick={() => cleanCart()}
-          className="text-lg font-medium text-[#DEAD6F] hover:text-white transition-colors uppercase tracking-wider"
-        >
-          limpar
-        </button>
       </div>
 
-      {/* 3. LISTA DE PRODUTOS DA ORDER (.MAP) */}
-      <div className="w-full max-w-7xl px-8 sm:px-16 py-8 flex flex-col gap-6 flex-1">
-        {cartItems.length === 0 ? (
-          <div className="text-center py-12 text-gray-400 text-lg">Seu carrinho está vazio.</div>
-        ) : (
-          cartItems.map((item) => (
-            <div
-              key={item?.id}
-              className="w-full flex items-center justify-between border-b border-gray-200 pb-6 last:border-none"
-            >
-              {/* Bloco da Esquerda: Imagem + Detalhes */}
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 border border-gray-300 bg-white rounded flex items-center justify-center ">
-                  <div className="w-full h-full bg-gray-100 rounded relative">
-                    <Image
-                      src={`/images/products/${item.animal}/${item.image}.jpg`}
-                      alt={item.label}
-                      fill
-                      className="object-contain p-2"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
-                    {item?.categoria}
-                  </span>
-                  <h3 className="text-lg font-bold text-[#4A3728]">
-                    {item?.label}
-                  </h3>
-                  <span className="text-sm text-gray-500">
-                    Preço unitário: R$ {item?.price.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Bloco da Direita: Quantidade + Preço Total do Item */}
-              <div className="flex flex-col items-end gap-2 text-right">
-                <input className="px-3 py-1 border border-gray-300 bg-white text-gray-700 text-sm font-semibold rounded w-18"
-                  onChange={(e)=>{updateQuantity(item.id,e.target.valueAsNumber)}}
-                  value={item.quantity}
-                  type="number"
-                  />
-                <span className="text-xl font-extrabold text-[#4A3728]">
-                  R$ {(item?.price * item?.quantity).toFixed(2)}
-                </span>
-              </div>
-            </div>
-          ))
-        )}
+      {/* 3. formas de pagamento*/}
+      <div>
+        {formaDePagamento.map((modo) => (
+          <button
+            key={modo.id}
+            onClick={() => setSelectedModo(filter.id)}
+            className={ButtonStyle(selectedAnimal === filter.id)}
+          >
+            {modo.label}
+          </button>
+        ))}
       </div>
+      
 
       {/* 4. RODAPÉ DE FINALIZAÇÃO DA COMPRA (Faixa bege com botão Comprar à direita) */}
       <div className="w-full bg-[#E6DCD2] py-6 px-8 sm:px-16 flex justify-end items-center mt-auto">
