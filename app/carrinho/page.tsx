@@ -41,6 +41,10 @@ export default function Carrinho() {
     router.push(`/item/${label}`);
   };
 
+  const handleNext = () =>{
+    router.push("/pagamento")
+  }
+
 
   const { cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart()
 
@@ -200,7 +204,7 @@ export default function Carrinho() {
               R$ {cartTotal}
             </span>
           </div>
-          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>}>
+          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>handleNext()}>
             Comprar
           </button>
         </div>
