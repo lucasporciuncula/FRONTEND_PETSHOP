@@ -37,17 +37,17 @@ export default function AdminPanel() {
           <div className="bg-[#664533] p-1.5 rounded-xl text-white flex items-center justify-center">
             <Flame size={28} className="fill-white" /> 
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tighter">
+          <h1 className="text-2xl font-black text-white tracking-normal">
             Pet<span className="text-[#664533]">Shop</span>
             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-4 bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
-              Painel Admin
+              Painel Produtos - Admin
             </span>
           </h1>
         </div>
         
         <div className="flex items-center gap-6">
           <button className="text-xs bg-[#664533] hover:bg-[#664533] text-white font-bold uppercase tracking-wider px-5 py-3 rounded-2xl transition-all shadow-lg shadow-[#f26422]/10 active:scale-95">
-            + Adicionar Produto
+           Voltar para admin
           </button>
           
           <div className="flex items-center gap-3 bg-[#121212] px-4 py-2 rounded-2xl border border-white/5">
@@ -65,8 +65,8 @@ export default function AdminPanel() {
           </div>
         </div>
       </header>
-      <section className="bg-[#1e1e1e] border border-white/5 rounded-4xl p-6 flex flex-col gap-4 shadow-lg text-xs font-bold uppercase tracking-wider">
 
+      {/* <section className="bg-[#1e1e1e] border border-white/5 rounded-4xl p-6 flex flex-col gap-4 shadow-lg text-xs font-bold uppercase tracking-wider">
         <div className="flex items-center gap-4 border-b border-white/5 pb-4">
           <span className="text-gray-500 w-24">Animal:</span>
           <div className="flex gap-2">
@@ -104,11 +104,9 @@ export default function AdminPanel() {
             ))}
           </div>
         </div>
+      </section> */}
 
-      </section>
-
-      <div className="flex gap-6 items-stretch flex-1 min-h-145">
-        
+      <div className="flex gap-6 items-stretch flex-1 min-h-145">      
         <div className="flex-1 bg-[#1e1e1e] border border-white/5 rounded-4xl p-6 flex flex-col gap-6 shadow-xl">
 
           <div className="flex items-center gap-2 border-b border-white/5 pb-5 overflow-x-auto scrollbar-hide">

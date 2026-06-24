@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Banner() {
-  return (
-    <section className="bg-[#664533] py-12 md:py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-12 gap-8 items-center">
+  return (  
+    <section className="bg-[#664533] py-30 mt-8 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-12 gap-8 items-center justify-center">
         <div className="md:col-span-5 flex justify-center order-2 md:order-1">
           <div className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-full md:h-100">
             <Image 

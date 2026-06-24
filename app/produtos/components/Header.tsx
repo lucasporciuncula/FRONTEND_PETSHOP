@@ -52,7 +52,7 @@ export default function Header() {
   const {cartItems} = useCart()
 
   return (
-    <header className="w-full bg-white border-b border-gray-100">
+    <header className="w-full fixed z-50 top-0 left-0 bg-white border-b border-gray-100">
       <div className="w-full pr-4 pl-0 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
 
         <div className="flex justify-start ml-10">
@@ -118,7 +118,7 @@ export default function Header() {
           <div className="flex items-center gap-4 text-gray-700">
             <button className="relative hover:text-[#664533] transition-colors p-1" onClick={buttonClickCart}>
               <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z" /></svg>
-              <span className="absolute -top-1 -right-1 bg-[#664533] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartItems.length>0?cartItems.length:null}</span>
+              <span className="absolute -top-1 -right-1 bg-[#664533] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartItems.length}</span>
             </button>
             <button className="relative hover:text-[#db4e49] transition-colors p-1" onClick={buttonClick}>
               <LogOut size={18} />
