@@ -15,6 +15,7 @@ export default function useUser() {
 
   const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
     setLoading(true);
 
     try {
@@ -53,6 +54,7 @@ export default function useUser() {
 
   const handleCadastro = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
     setLoading(true);
 
     try {
