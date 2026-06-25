@@ -13,30 +13,26 @@ export default function Animals() {
   ];
 
   return (
-    <section className="w-full py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-12">
+    <section className="w-full py-12 md:py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8 md:mb-12">
           <div className="space-y-2">
-            <p className="text-[#4a2f20] font-semibold text-lg"><span className="font-bold">#</span> Nossos produtos</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 max-w-xl leading-tight">
+            <p className="text-[#4a2f20] font-semibold text-base sm:text-lg">
+              <span className="font-bold">#</span> Nossos produtos
+            </p>
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 max-w-xl leading-tight">
               Pet <span className="text-[#4a2f20]">Shop</span> produtos de qualidade
             </h1>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="space-y-6">
-            <AnimalCard item={categories[0]} aspect="aspect-[4/3]" />
-            <AnimalCard item={categories[1]} aspect="aspect-[3/4]" />
-          </div>
-          <div className="space-y-6">
-            <AnimalCard item={categories[2]} aspect="aspect-[3/4]" />
-            <AnimalCard item={categories[3]} aspect="aspect-[4/3]" />
-          </div>
-          <div className="space-y-6">
-            <AnimalCard item={categories[4]} aspect="aspect-[4/3]" />
-            <AnimalCard item={categories[5]} aspect="aspect-[3/4]" />
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimalCard item={categories[0]} aspect="aspect-square sm:aspect-[4/3]" />
+          <AnimalCard item={categories[1]} aspect="aspect-square sm:aspect-[3/4]" />
+          <AnimalCard item={categories[2]} aspect="aspect-square sm:aspect-[3/4]" />
+          <AnimalCard item={categories[3]} aspect="aspect-square sm:aspect-[4/3]" />
+          <AnimalCard item={categories[4]} aspect="aspect-square sm:aspect-[4/3]" />
+          <AnimalCard item={categories[5]} aspect="aspect-square sm:aspect-[3/4]" />
         </div>
       </div>
     </section>
@@ -46,10 +42,16 @@ export default function Animals() {
 function AnimalCard({ item, aspect }: { item: any; aspect: string }) {
   return (
     <div className={`relative w-full ${aspect} rounded-xl overflow-hidden group shadow-md cursor-pointer`}>
-      <Image src={item.img} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+      <Image 
+        src={item.img} 
+        alt={item.name} 
+        fill 
+        sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
+        className="object-cover transition-transform duration-500 group-hover:scale-110" 
+      />
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
         <p className="text-white/80 text-xs uppercase tracking-widest mb-1">{item.type}</p>
-        <h5 className="text-white text-xl font-bold">{item.name}</h5>
+        <h5 className="text-white text-lg sm:text-xl font-bold">{item.name}</h5>
       </div>
     </div>
   );

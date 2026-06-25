@@ -1,19 +1,17 @@
-
 "use client";
 
 import { useCart } from "@/app/context/OrdersContext";
 import { useProductContext } from "@/app/context/ProductsContext";
-import { LogOut } from "lucide-react";
+import { LogOut, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
 export default function Header() {
   const router = useRouter();
-
-  const { products } = useProductContext()
+  const { products } = useProductContext();
+  const { cartItems } = useCart();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState(products.slice(0, 0));
@@ -49,13 +47,12 @@ export default function Header() {
     router.push(`/item/${label}`);
   };  
 
-  const {cartItems} = useCart()
-
   return (
     <header className="w-full fixed z-50 top-0 left-0 bg-white border-b border-gray-100">
-      <div className="w-full pr-4 pl-0 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-
-        <div className="flex justify-start ml-10">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        
+        {/* Logo */}
+        <div className="flex shrink-0">
           <Link href="/">
             <Image
               src="/images/logo_petshop.png"
@@ -63,79 +60,83 @@ export default function Header() {
               width={35}
               height={50}
               priority
-              className="h-auto w-auto object-contain"
+              className="h-10 w-auto object-contain"
             />
           </Link>
         </div>
 
-        <div className="hidden md:block relative z-50">
-          <form className="relative flex items-center border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus-within:border-[#664533] transition-all" onSubmit={(e) => e.preventDefault()}>
+        {/* Barra de pesquisa responsiva (Oculta em telas muito pequenas, visível a partir de sm:) */}
+        <div className="hidden sm:block flex-1 max-w-md relative z-50">
+          <form className="relative flex items-center border rounded-lg px-3 py-2 bg-gray-50 border-[#664533] transition-all" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchChange}
-              placeholder="Pesquise por mais de 10.000 produtos..."
+              placeholder="Pesquise produtos..."
               className="w-full bg-transparent text-sm text-gray-700 outline-none pr-8"
             />
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="absolute right-3 text-gray-400">
-              <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
-            </svg>
+            <Search className="absolute right-3 w-4 h-4 text-gray-400" />
           </form>
 
           {isDropdownOpen && suggestions.length > 0 && (
-            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-              <ul className="max-h-80 overflow-y-auto">
+            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-50">
+              <ul className="max-h-64 overflow-y-auto">
                 {suggestions.map((product) => (
                   <li
                     key={product?.id}
                     onClick={() => handleSuggestionClick(product?.label ? product?.label : "missing label")}
-                    className="px-4 py-3 flex items-center gap-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#664533] cursor-pointer transition-colors border-b border-gray-50 last:border-none"
+                    className="px-4 py-2.5 flex items-center gap-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#664533] cursor-pointer transition-colors border-b border-gray-50 last:border-none"
                   >
-                    <div className="relative w-20 h-20 shrink-0 bg-gray-100 rounded overflow-hidden">
+                    <div className="relative w-10 h-10 shrink-0 bg-gray-50 rounded overflow-hidden">
                       <Image
                         src={`/images/products/${product?.animal}/${product?.image}.jpg`}
-                        alt={product?.label || "nome da imagem"}
+                        alt={product?.label || "imagem"}
                         fill
-                        className="object-contain p-4"
+                        className="object-contain p-1"
                       />
                     </div>
-                    <span className="font-medium">{product?.label}</span>
+                    <span className="font-medium truncate">{product?.label}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
 
-
           {isDropdownOpen && suggestions.length === 0 && (
-            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-sm text-gray-500 text-center">
-              Nenhum produto encontrado para {searchTerm}
+            <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-sm text-gray-500 text-center z-50">
+              Nenhum produto encontrado para "{searchTerm}"
             </div>
           )}
         </div>
 
-        <div className="hidden sm:flex items-center justify-end gap-8 mr-10">
-          <div className="flex items-center gap-4 text-gray-700">
-            <button className="relative hover:text-[#664533] transition-colors p-1" onClick={buttonClickCart}>
-              <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z" /></svg>
-              <span className="absolute -top-1 -right-1 bg-[#664533] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartItems.length}</span>
+        {/* Ações e Contato */}
+        <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+          {/* Ícones de Ação */}
+          <div className="flex items-center gap-2 sm:gap-4 text-gray-700">
+            <button className="relative hover:text-[#664533] transition-colors p-2" onClick={buttonClickCart} aria-label="Carrinho">
+              <ShoppingCart className="w-5 h-5" />
+              <span className="absolute top-0 right-0 bg-[#664533] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                {cartItems.length}
+              </span>
             </button>
-            <button className="relative hover:text-[#db4e49] transition-colors p-1" onClick={buttonClick}>
-              <LogOut size={18} />
+            <button className="relative hover:text-[#db4e49] transition-colors p-2" onClick={buttonClick} aria-label="Sair">
+              <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
-          <div className="flex gap-6 text-sm text-right">
+          {/* Informações de contato (Ocultas no mobile, visíveis em telas grandes) */}
+          <div className="hidden lg:flex gap-6 text-sm text-right border-l border-gray-100 pl-6">
             <div>
-              <span className="block text-xs uppercase tracking-wider text-[#664533] font-medium">Telefone</span>
-              <span className="font-semibold text-gray-900">+980-34984089</span>
+              <span className="block text-[10px] uppercase tracking-wider text-[#664533] font-medium">Telefone</span>
+              <span className="font-semibold text-gray-900 whitespace-nowrap">+980-34984089</span>
             </div>
             <div>
-              <span className="block text-xs uppercase tracking-wider text-[#664533] font-medium">Email</span>
-              <span className="font-semibold text-gray-900">petshop@gmail.com</span>
+              <span className="block text-[10px] uppercase tracking-wider text-[#664533] font-medium">Email</span>
+              <span className="font-semibold text-gray-900 whitespace-nowrap">petshop@gmail.com</span>
             </div>
           </div>
         </div>
+
       </div>
     </header>
   );
