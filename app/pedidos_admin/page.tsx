@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Flame, Clock, CheckCircle2, Clipboard, LogOut, X, UserIcon, Phone, MapPin } from "lucide-react";
-import { ordersList, ORDER_STATUSES } from "../data/ordersList";
 import { useAuthContext } from "../context/AuthContext"; 
 
 export default function AdminPanel() {
