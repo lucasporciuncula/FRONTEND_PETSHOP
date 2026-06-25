@@ -11,17 +11,17 @@ export default function AdminPanel() {
   const [selectedAnimalFilter, setSelectedAnimalFilter] = useState("Todos");
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState("Todos");
   const [selectedOrder, setSelectedOrder] = useState<typeof ordersList[0] | null>(ordersList[0] || null);
-  const totalPending = ordersList.filter((o) => o.status === "pending").length;       
-  const totalProduction = ordersList.filter((o) => o.status === "production").length; 
-  const totalSent = ordersList.filter((o) => o.status === "sent").length;            
-  const totalDelivered = ordersList.filter((o) => o.status === "delivered").length;   
+  const totalPending = ordersList.filter((o) => o.status === "pending").length;
+  const totalProduction = ordersList.filter((o) => o.status === "production").length;
+  const totalSent = ordersList.filter((o) => o.status === "sent").length;
+  const totalDelivered = ordersList.filter((o) => o.status === "delivered").length;
   const filteredOrders = ordersList.filter((order) => {
     const matchesStatus = selectedStatusFilter === "all" || order.status === selectedStatusFilter;
-    const matchesAnimal = selectedAnimalFilter === "Todos" || order.items.some(item => 
+    const matchesAnimal = selectedAnimalFilter === "Todos" || order.items.some(item =>
       !(item as any).animal || (item as any).animal === selectedAnimalFilter
     );
 
-    const matchesCategory = selectedCategoryFilter === "Todos" || order.items.some(item => 
+    const matchesCategory = selectedCategoryFilter === "Todos" || order.items.some(item =>
       !(item as any).category || (item as any).category === selectedCategoryFilter
     );
 
