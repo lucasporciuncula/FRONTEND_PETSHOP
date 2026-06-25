@@ -7,13 +7,13 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="w-full bg-gray-900 text-gray-300 pt-16 relative">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-800">
+    <footer className="w-full bg-gray-900 text-gray-300 pt-12 md:pt-16 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 pb-12 border-b border-gray-800">
         <div className="space-y-4">
           <h5 className="text-white font-bold text-lg tracking-wide mb-2">Address</h5>
-          <div className="flex items-center gap-3 text-sm"><MapPin className="w-4 h-4 text-[#eed5aa]" /> <span>123 Street, New York, USA</span></div>
-          <div className="flex items-center gap-3 text-sm"><Phone className="w-4 h-4 text-[#eed5aa]" /> <span>+012 345 67890</span></div>
-          <div className="flex items-center gap-3 text-sm"><Mail className="w-4 h-4 text-[#eed5aa]" /> <span>info@example.com</span></div>
+          <div className="flex items-center gap-3 text-sm"><MapPin className="w-4 h-4 text-[#eed5aa] shrink-0" /> <span>123 Street, New York, USA</span></div>
+          <div className="flex items-center gap-3 text-sm"><Phone className="w-4 h-4 text-[#eed5aa] shrink-0" /> <span>+012 345 67890</span></div>
+          <div className="flex items-center gap-3 text-sm"><Mail className="w-4 h-4 text-[#eed5aa] shrink-0" /> <span>info@example.com</span></div>
           
           <div className="flex gap-2 pt-2 text-gray-400">
             <a href="#" className="w-9 h-9 rounded-lg border border-gray-700 hover:bg-white hover:text-gray-900 flex items-center justify-center transition-colors">
@@ -34,14 +34,14 @@ export default function Footer() {
         <div className="space-y-3">
           <h5 className="text-white font-bold text-lg tracking-wide mb-2">Quick Links</h5>
           {["About Us", "Contact Us", "Our Services"].map((l, i) => (
-            <Link key={i} href="#" className="block text-sm hover:text-white transition-all">➔ {l}</Link>
+            <Link key={i} href="#" className="block text-sm hover:text-white transition-all py-1 sm:py-0">➔ {l}</Link>
           ))}
         </div>
 
         <div className="space-y-3">
           <h5 className="text-white font-bold text-lg tracking-wide mb-2">Popular Links</h5>
           {["About Us", "Contact Us", "Our Services"].map((l, i) => (
-            <Link key={i} href="#" className="block text-sm hover:text-white transition-all">➔ {l}</Link>
+            <Link key={i} href="#" className="block text-sm hover:text-white transition-all py-1 sm:py-0">➔ {l}</Link>
           ))}
         </div>
 
@@ -54,7 +54,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-[#4a2f20] hover:bg-[#664533] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg z-50">
+      <button onClick={scrollToTop} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-[#4a2f20] hover:bg-[#664533] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-lg z-50 transition-transform active:scale-95">
         <ArrowUp className="w-5 h-5" />
       </button>
     </footer>

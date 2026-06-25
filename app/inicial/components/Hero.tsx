@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-[calc(100vh-80px)] lg:min-h-187.5 flex items-start overflow-hidden">
+    <section className="relative w-full min-h-[calc(100vh-80px)] lg:min-h-187.5 flex items-center lg:items-start">
 
       <div className="absolute inset-0 z-0">
         <Image 
@@ -16,12 +16,10 @@ export default function Hero() {
           quality={100} 
           className="object-cover object-center scale-100 rendering-pixelated-none" 
         />
-      </div>
-      
-      <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-30 relative z-10 w-full pt-16 lg:pt-24 text-[#4a2f20]">
-        <div className="max-w-sm space-y-3 lg:ml-4">
-
-          <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-[0.95] tracking-tight">
+      </div>     
+      <div className="max-w-8xl mx-auto px-6 md:px-12 lg:px-30 relative z-10 w-full pt-24 lg:pt-24 text-[#4a2f20]">
+        <div className="max-w-sm space-y-3 lg:ml-4 mx-auto lg:mx-0 text-center lg:text-left">
+          <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-tight lg:leading-[0.95] tracking-tight">
             PetShop <br />
             Pet <span className="text-[#eed5aa]">Shop</span>
           </h1>
