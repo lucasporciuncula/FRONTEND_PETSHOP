@@ -16,12 +16,14 @@ export interface CartItem {
 }
 
 export interface Order {
-  userId: string | null
-  customerEmail: string | null
+  id?: number; // Opcional no front antes de salvar, mas presente vindo do back
+  userId: string | number | null; // Alinhado com a conversão numérica
+  customerEmail: string | null;
   items: CartItem[];
   total: number;
   createdAt: string;
-  isDelivery : boolean
+  isDelivery: boolean;
+  status?: "PROCESSANDO" | "ENVIADO" | "ENTREGUE"; // Sincronizado com o Enum do Prisma
 }
 
 interface CartContextType {

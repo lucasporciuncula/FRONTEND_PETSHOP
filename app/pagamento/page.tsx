@@ -42,7 +42,7 @@ export default function Carrinho() {
     };
 
 
-    const { cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart()
+    const { cartTotal, makeOrder } = useCart()
 
     const ButtonStyle = (isActive: boolean) =>
         `px-5 py-2.5 rounded-full text-xs font-bold transition-all shrink-0 m-4 flex flex-row flex-wrap ${isActive
