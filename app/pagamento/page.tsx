@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "../context/OrdersContext";
 import { useRouter } from "next/navigation";
 import { useProductContext } from "../context/ProductsContext";
 import { useState } from "react";
+import { useCart } from "../hooks/useOrders";
 export default function Carrinho() {
 
     const router = useRouter();

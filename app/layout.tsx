@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider } from "./context/AuthContext";
-import { UserProvider } from "./context/UserContext";
-import { ProductProvider } from "./context/ProductsContext";
-import { CartProvider } from "./context/OrdersContext";
+import { Providers } from "./Providers";
 
 export const metadata: Metadata = {
   title: "PetShop",
@@ -17,16 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased"> <ProductProvider><AuthProvider>
-        <CartProvider>
-         
-            
-              <UserProvider>
-                {children}
-              </UserProvider>
-            
-         
-        </CartProvider> </AuthProvider></ProductProvider>
+      <body className="antialiased">
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

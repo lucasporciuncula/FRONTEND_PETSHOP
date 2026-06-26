@@ -1,36 +1,26 @@
 "use client"; 
 
 import { useState } from "react";
-import { Flame, Clock, CheckCircle2, Clipboard, LogOut, X, UserIcon, Phone, MapPin } from "lucide-react";
+import { Flame, Clock, LogOut, X, UserIcon, Phone, MapPin } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext"; 
+import { useCart } from "../hooks/useOrders";
 
 export default function AdminPanel() {
   const { logout } = useAuthContext();
+  const { orders } = useCart()
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("all");
-  const [selectedAnimalFilter, setSelectedAnimalFilter] = useState("Todos");
-  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState("Todos");
-  const [selectedOrder, setSelectedOrder] = useState<typeof ordersList[0] | null>(ordersList[0] || null);
-  const totalPending = ordersList.filter((o) => o.status === "pending").length;
-  const totalProduction = ordersList.filter((o) => o.status === "production").length;
-  const totalSent = ordersList.filter((o) => o.status === "sent").length;
-  const totalDelivered = ordersList.filter((o) => o.status === "delivered").length;
-  const filteredOrders = ordersList.filter((order) => {
+  const [selectedOrder, setSelectedOrder] = useState<typeof orders[0] | null>(orders[0] || null);
+  const totalProcessando = orders.filter((o) => o.status === "PROCESSANDO").length;
+  const totalEnviado = orders.filter((o) => o.status === "ENVIADO").length;
+  const totalEntregue = orders.filter((o) => o.status === "ENTREGUE").length;
+  const filteredOrders = orders.filter((order) => {
     const matchesStatus = selectedStatusFilter === "all" || order.status === selectedStatusFilter;
-    const matchesAnimal = selectedAnimalFilter === "Todos" || order.items.some(item =>
-      !(item as any).animal || (item as any).animal === selectedAnimalFilter
-    );
-
-    const matchesCategory = selectedCategoryFilter === "Todos" || order.items.some(item =>
-      !(item as any).category || (item as any).category === selectedCategoryFilter
-    );
-
-    return matchesStatus && matchesAnimal && matchesCategory;
+    return matchesStatus
   });
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-black font-sans p-8 flex flex-col gap-6 selection:bg-[#F5F2EC]">
       
-
       <header className="w-full bg-[#FAFAF8] border border-[#664533] rounded-3xl p-5 flex items-center justify-between shadow-xl">
         <div className="flex items-center gap-2">
           <div className="bg-[#FAFAF8] p-1.5 rounded-xl text-black flex items-center justify-center">
@@ -65,57 +55,16 @@ export default function AdminPanel() {
         </div>
       </header>
 
-      {/* <section className="bg-[#1e1e1e] border border-white/5 rounded-4xl p-6 flex flex-col gap-4 shadow-lg text-xs font-bold uppercase tracking-wider">
-        <div className="flex items-center gap-4 border-b border-white/5 pb-4">
-          <span className="text-gray-500 w-24">Animal:</span>
-          <div className="flex gap-2">
-            {["Todos", "Cachorros", "Gatos"].map((animal) => (
-              <button
-                key={animal}
-                onClick={() => setSelectedAnimalFilter(animal)}
-                className={`px-4 py-2.5 rounded-xl transition-all ${
-                  selectedAnimalFilter === animal
-                    ? "bg-[#664533] text-black shadow-md shadow-[#f26422]/10"
-                    : "bg-[#121212] text-gray-400 hover:bg-[#161616] border border-white/5"
-                }`}
-              >
-                {animal}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4 pt-1">
-          <span className="text-gray-500 w-24">Categoria:</span>
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pr-2">
-            {["Todos", "Camas", "Alimentação", "Transporte", "Brinquedos", "Higiene", "Medicamentos", "Shampoos"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategoryFilter(cat)}
-                className={`px-4 py-2.5 rounded-xl transition-all shrink-0 ${
-                  selectedCategoryFilter === cat
-                    ? "bg-[#664533] text-black shadow-md shadow-[#f26422]/10"
-                    : "bg-[#121212] text-gray-400 hover:bg-[#161616] border border-white/5"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
       <div className="flex gap-6 items-stretch flex-1 min-h-145  shadow-xl">      
         <div className="flex-1 bg-[#FAFAF8] border border-[#664533]rounded-4xl p-6 flex flex-col gap-6 shadow-xl">
 
           <div className="flex items-center gap-2 border-b border-[#664533] pb-5 overflow-x-auto scrollbar-hide">
             <span className="text-xs font-bold text-gray-800 uppercase tracking-wider mr-2">Filtros:</span>
             {[
-              { id: "all", label: "Todos", count: ordersList.length },
-              { id: "pending", label: "Recebidos", count: totalPending },
-              { id: "production", label: "Produção", count: totalProduction },
-              { id: "sent", label: "Enviados", count: totalSent },
-              { id: "delivered", label: "Entregues", count: totalDelivered },
+              { id: "all", label: "Todos", count: orders.length },
+              { id: "processando", label: "Processando", count: totalProcessando },
+              { id: "enviado", label: "Enviado", count: totalEnviado },
+              { id: "entregue", label: "Entregue", count: totalEntregue },
             ].map((filter) => (
               <button
                 key={filter.id}
@@ -136,7 +85,6 @@ export default function AdminPanel() {
               <p className="text-center text-gray-800 my-auto py-12 font-medium">Nenhum pedido encontrado neste filtro.</p>
             ) : (
               filteredOrders.map((order) => {
-                const statusMeta = ORDER_STATUSES[order.status as keyof typeof ORDER_STATUSES];
                 const isSelected = selectedOrder?.id === order.id;
 
                 return (
@@ -153,20 +101,20 @@ export default function AdminPanel() {
                       <div className="flex items-center gap-3.5">
                         <span className="text-3xl font-black tracking-tight">{order.id}</span>
                         <span className="bg-[#FAFAF8] px-3 py-1 rounded-xl border border-[#664533]text-[10px] font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-                          {statusMeta?.icon} {statusMeta?.label}
+                         {order?.createdAt}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-12 text-sm text-gray-800  shadow-xl">
                         <div>
                           <p className="text-[10px] uppercase font-bold text-gray-800 tracking-wider">Cliente</p>
-                          <p className="font-bold text-gray-600 mt-1 text-base">{order.customerName}</p>
+                          <p className="font-bold text-gray-600 mt-1 text-base">{order.customerEmail} ID: {order.id}</p>
                         </div>
                         <div>
                           <p className="text-[10px] uppercase font-bold text-gray-800 tracking-wider">Horário</p>
                           <p className="font-bold text-gray-600 mt-1 flex items-center gap-1">
                             <Clock size={14} className="text-gray-800" />
-                            {order.statusHistory[0]?.time || "13:34"} 
+                            {order.status} 
                           </p>
                         </div>
                       </div>
@@ -204,7 +152,7 @@ export default function AdminPanel() {
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-black">{selectedOrder.id}</span>
                   <span className="text-xs font-bold text-green-400">
-                    {ORDER_STATUSES[selectedOrder.status as keyof typeof ORDER_STATUSES]?.label}
+                    {/* {ORDER_STATUSES[selectedOrder.status as keyof typeof ORDER_STATUSES]?.label} */}label aq
                   </span>
                 </div>
               </div>
@@ -214,15 +162,15 @@ export default function AdminPanel() {
                 <div className="flex flex-col gap-3 text-xs font-medium text-black">
                   <div className="flex items-center gap-2.5">
                     <UserIcon size={15} className="text-black" />
-                    <span className="text-black font-bold">{selectedOrder.customerName}</span>
+                    <span className="text-black font-bold">{selectedOrder.customerEmail}</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Phone size={15} className="text-black" />
-                    <span>{selectedOrder.customerPhone}</span>
+                    <span>{selectedOrder.userId}</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin size={15} className="text-black mt-0.5 shrink-0" />
-                    <span className="leading-relaxed">{selectedOrder.address}</span>
+                    <span className="leading-relaxed">{selectedOrder.isDelivery}</span>
                   </div>
                 </div>
               </div>
@@ -233,7 +181,7 @@ export default function AdminPanel() {
                   {selectedOrder.items.map((item, idx) => (
                     <div key={idx} className="flex justify-between text-xs font-bold">
                       <span className="text-black">
-                        {item.quantity}x <span className="text-black font-medium">{item.name}</span>
+                        {item.quantity}x <span className="text-black font-medium">{item.label}</span>
                       </span>
                       <span>
                         R$ {(item.price * item.quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
@@ -243,20 +191,10 @@ export default function AdminPanel() {
                 </div>
               </div>
 
-              {selectedOrder.notes && (
-                <div className="bg-yellow-500/5 border border-yellow-500/10 p-3.5 rounded-xl text-xs text-yellow-500/90 font-medium">
-                  <strong>Observação:</strong> {selectedOrder.notes}
-                </div>
-              )}
-
               <div className="mt-auto flex flex-col gap-2 bg-[#FAFAF8] border border-[#664533] p-4 rounded-2xl text-xs font-medium text-black">
                 <div className="flex justify-between">
-                  <span>Subtotal:</span>
-                  <span className="text-black">R$ {selectedOrder.subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Taxa de Entrega:</span>
-                  <span className="text-black">R$ {selectedOrder.deliveryFee.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
+                  <span>Total:</span>
+                  <span className="text-black">R$ {selectedOrder.total.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between items-center border-t border-[#664533] pt-2 mt-1 text-black font-black text-sm">
                   <span>Total Geral:</span>

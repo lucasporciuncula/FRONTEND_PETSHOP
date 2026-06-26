@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "../context/OrdersContext";
 import { useRouter } from "next/navigation";
 import { useProductContext } from "../context/ProductsContext";
 import { useState } from "react";
+import { useCart } from "../hooks/useOrders";
 export default function Carrinho() {
 
   const router = useRouter();
@@ -47,7 +47,7 @@ export default function Carrinho() {
   }
 
 
-  const { cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart()
+  const { cartItems, cartTotal, cleanCart, updateQuantity } = useCart()
 
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen bg-[#FAFAF8] font-sans">

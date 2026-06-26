@@ -27,25 +27,13 @@ export default function Admin() {
   const { user, loading, logout } = useAuthContext(); // Adicione 'loading' aqui se necessário
 
   useEffect(() => {
-  // 1. Se ainda estiver no carregamento inicial do contexto, para aqui.
   if (loading) return; 
-
-  // 2. Se o user não existe na memória (ainda é null ou undefined),
-  // significa que o Context ainda está buscando no sessionStorage. Não faz nada.
   if (!user) return;
-
-  // 3. Se o user existe, mas a propriedade role veio indefinida (objeto incompleto),
-  // também espera o estado estabilizar.
-  if (user.role === undefined) return;
-
-  // 4. SÓ EXPULSA se o usuário estiver totalmente carregado E a role dele for diferente de ADMIN
-  if (user.role !== "ADMIN") {
+  if (user !== "ADMIN") {
     router.push("/Produtos");
   }
-  
 }, [user, loading, router]);
 
-  // Se ainda estiver carregando os dados do sessionStorage, mostra uma tela vazia ou um loading
   if (loading) {
     return <div className="p-8">Carregando painel...</div>;
   }

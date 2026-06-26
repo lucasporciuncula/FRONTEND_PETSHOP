@@ -1,8 +1,8 @@
 "use client";
 
-import { useCart } from "@/app/context/OrdersContext";
 import { useProductContext } from "@/app/context/ProductsContext";
 import useCategories from "@/app/hooks/useCategories";
+import { useCart } from "@/app/hooks/useOrders";
 import { useProducts } from "@/app/hooks/useProducts";
 import Image from "next/image";
 import Link from "next/link";
