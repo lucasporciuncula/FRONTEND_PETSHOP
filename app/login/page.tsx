@@ -6,7 +6,6 @@ import useUser from "../hooks/useUser";
 export default function Login() {
     const { password, email, setEmail, setPassword } = useUserContext();
     
-    // 🌟 MELHORIA: Pegando o error e o loading diretamente do seu hook customizado
     const { handleLogin, error, loading } = useUser();
 
     return (
@@ -24,7 +23,6 @@ export default function Login() {
               </p>
             </div>
             
-            {/* O formulário chama diretamente o seu handleLogin do hook */}
             <form className="space-y-6" onSubmit={handleLogin}>
               <div className="space-y-3">
                 
@@ -64,7 +62,6 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* 🌟 O erro vindo do seu hook agora é exibido perfeitamente aqui */}
               {error && (
                 <div className="bg-red-200 text-red-500 border border-red-400 rounded p-2 mb-2 text-center text-sm font-medium">
                   {error}

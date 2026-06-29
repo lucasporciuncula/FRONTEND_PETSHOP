@@ -37,7 +37,7 @@ export default function useUser() {
       const user = data.user;
       const role = data.user.role; 
 
-      login(token, user, role);
+      login(token, role, user);
 
       // CORREÇÃO: Usar a variável local 'role' garante o redirecionamento correto imediato
       if (role === "ADMIN") {

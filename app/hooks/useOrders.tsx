@@ -94,13 +94,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [refreshOrders]);
 
   const makeOrder = async (isDelivery: boolean) => {
-    if (!user || !token) {
+    if (!user || !token || user===null) {
+      console.log("nem tem user aq")
       setErrorOrders("Usuário não autenticado.");
       return;
     }
 
     try {
       setLoadingOrders(true);
+      console.log(Number(user.id),user.email,cartItems,cartTotal,isDelivery,"aqui ta os dados q ele manda pro back")
+      console.log("ese é o user:" + user)
       const payload = {
         userId: Number(user.id),
         customerEmail: user.email,

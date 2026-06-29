@@ -29,7 +29,7 @@ export default function Admin() {
   useEffect(() => {
   if (loading) return; 
   if (!user) return;
-  if (user !== "ADMIN") {
+  if (user.role !== "ADMIN") {
     router.push("/Produtos");
   }
 }, [user, loading, router]);

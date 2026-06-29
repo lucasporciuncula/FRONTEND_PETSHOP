@@ -17,7 +17,7 @@ export default function Produtos() {
   // Altere o useEffect da página de Produtos para isto:
   useEffect(() => {
     // Se o usuário estiver logado e for um ADMIN, manda ele para a página de admin
-    if (user && user === "ADMIN") {
+    if (user?.role === "ADMIN") {
       router.push("/admin");
     }
   }, [user, router]);

@@ -35,10 +35,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedProfile = sessionStorage.getItem("profile");
     const storedUser = sessionStorage.getItem("user");
 
-    setToken(storedToken); 
-  setProfile(storedProfile);
-  // Garante que se não houver usuário logado, o estado fique estritamente null
-  setUser(storedUser ? JSON.parse(storedUser) : null);
+    if (!user){
+      setToken(storedToken); 
+      setProfile(storedProfile);
+      setUser(storedUser ? JSON.parse(storedUser) : null);
+    }
 
   setLoading(false);
 }, []);
