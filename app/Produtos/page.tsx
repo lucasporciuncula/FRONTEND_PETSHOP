@@ -18,16 +18,19 @@ export default function Produtos() {
   useEffect(() => {
     // Se o usuário estiver logado e for um ADMIN, manda ele para a página de admin
     if (user?.role === "ADMIN") {
-      router.push("/admin");
+      router.push("/pedidos_admin");
     }
   }, [user, router]);
 
   return (
     <ThemeProvider>
       <main className="font-sans bg-white text-gray-600 antialiased selection:bg-[#DEAD6F]/20">
-        <Header />
+      <section id="top">
+        <Header /></section>
         <Banner />
-        <Produto />
+        <section  id="produtos">
+        <Produto/>
+        </section>
       </main>
     </ThemeProvider>
   );

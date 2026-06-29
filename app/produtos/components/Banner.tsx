@@ -28,7 +28,7 @@ export default function Banner() {
           </h1>
           <div className="pt-2 sm:pt-4">
             <Link 
-              href="#" 
+              href="#produtos" 
               className="inline-flex items-center gap-2 border-2 border-white px-8 py-3.5 rounded text-sm uppercase font-semibold text-white hover:bg-white hover:text-gray-900 transition-all group"
             >
               Comprar Agora

@@ -62,6 +62,12 @@ export default function Admin() {
 
         <div className="flex gap-3">
           <button
+            onClick={() => router.push("/pedidos_admin")}
+            className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#4A3728] hover:bg-[#38291e] text-white shadow-md flex"
+          >
+            Voltar
+          </button>
+          <button
             onClick={() => logout()}
             className="px-6 py-3 rounded-lg text-sm font-bold transition-all bg-[#4A3728] hover:bg-[#38291e] text-white shadow-md flex"
           >

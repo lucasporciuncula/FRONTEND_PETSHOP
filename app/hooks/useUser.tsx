@@ -41,7 +41,7 @@ export default function useUser() {
 
       // CORREÇÃO: Usar a variável local 'role' garante o redirecionamento correto imediato
       if (role === "ADMIN") {
-        router.push("/admin");
+        router.push("/pedidos_admin");
       } else {
         router.push("/Produtos");
       }
