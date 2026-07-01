@@ -26,13 +26,15 @@ export default function Animals() {
           </div>
         </div>
 
+        {/* GRID UNIFORME */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimalCard item={categories[0]} aspect="aspect-square sm:aspect-[4/3]" />
-          <AnimalCard item={categories[1]} aspect="aspect-square sm:aspect-[3/4]" />
-          <AnimalCard item={categories[2]} aspect="aspect-square sm:aspect-[3/4]" />
-          <AnimalCard item={categories[3]} aspect="aspect-square sm:aspect-[4/3]" />
-          <AnimalCard item={categories[4]} aspect="aspect-square sm:aspect-[4/3]" />
-          <AnimalCard item={categories[5]} aspect="aspect-square sm:aspect-[3/4]" />
+          {categories.map((item) => (
+            <AnimalCard 
+              key={item.id} 
+              item={item} 
+              aspect="aspect-square sm:aspect-[4/3]"
+            />
+          ))}
         </div>
       </div>
     </section>

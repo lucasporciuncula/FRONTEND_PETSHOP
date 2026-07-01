@@ -19,7 +19,7 @@ export default function VisitingHours() {
           <div className="divide-y divide-white/10">
             {days.map((day, idx) => (
               <div key={idx} className="flex justify-between items-center py-3 text-sm sm:text-base gap-2">
-                <span className="font-medium shrink-0">{day.name}</span>
+                <span className="font-bold shrink-0">{day.name}</span>
                 <span className={`text-right ${day.highlight ? "text-red-200 font-bold" : "opacity-90"}`}>{day.time}</span>
               </div>
             ))}

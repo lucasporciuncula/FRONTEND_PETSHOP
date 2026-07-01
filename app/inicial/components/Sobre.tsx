@@ -6,9 +6,9 @@ import { CheckCircle2 } from "lucide-react";
 export default function Sobre() {
   const points = [
     "Qualidade nos produtos",
-    "Amantes do meio ambiente",
+    "Amantes dos animais",
     "Profissionais selecionados",
-    "Premio de qualidade"
+    "Prêmio de qualidade"
   ];
 
   return (

@@ -25,16 +25,16 @@ export default function Testimonials() {
   return (
     <section className="w-full py-12 sm:py-16 bg-gray-50 overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-8 sm:mb-12">Rewiew dos nossos clientes!</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-5 sm:mb-5">Review dos nossos clientes!</h1>
         <div className="relative px-2 sm:px-0">
           <button
             onClick={handlePrev}
-            className="absolute -left-2 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-11 md:h-11 bg-white hover:bg-[#664533] text-gray-700 hover:text-white border border-gray-100 rounded-full flex items-center justify-center shadow-md transition-all duration-200 active:scale-95 sm:flex"
+            className="absolute -left-2 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-11 md:h-11 bg-white hover:bg-[#664533] text-gray-700 hover:text-white border border-gray-100 rounded-full flex items-center justify-center shadow-xl transition-all duration-200 active:scale-95 sm:flex"
             aria-label="Previous testimonial"
           >
             &#10094;
           </button>
-          <div className="bg-white rounded-2xl p-6 sm:p-12 shadow-md border border-gray-100 flex flex-col items-center space-y-4 sm:space-y-6">
+          <div className="bg-white rounded-2xl p-6 sm:p-12 shadow-xl border border-gray-100 flex flex-col items-center space-y-4 sm:space-y-6">
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 border-2 border-[#664533] shrink-0">
               <Image src={list[active].img} alt={list[active].name} fill className="rounded-full object-cover" />
             </div>

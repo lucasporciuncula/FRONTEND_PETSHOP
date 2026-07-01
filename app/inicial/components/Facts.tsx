@@ -4,9 +4,9 @@ import { Award, PawPrint, Users, ShieldCheck } from "lucide-react";
 
 export default function Facts() {
   const stats = [
-    { icon: <Award className="w-7 h-7 sm:w-8 sm:h-8" />, num: "15+", label: "Anos de experiência" },
-    { icon: <PawPrint className="w-7 h-7 sm:w-8 sm:h-8" />, num: "5080+", label: "Total de atendimentos" },
-    { icon: <Users className="w-7 h-7 sm:w-8 sm:h-8" />, num: "5678+", label: "Compras online" },
+    { icon: <Award className="w-7 h-7 sm:w-8 sm:h-8" />, num: "7", label: "Anos de experiência" },
+    { icon: <PawPrint className="w-7 h-7 sm:w-8 sm:h-8" />, num: "4500+", label: "Total de atendimentos" },
+    { icon: <Users className="w-7 h-7 sm:w-8 sm:h-8" />, num: "5000", label: "Compras online" },
     { icon: <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" />, num: "100%", label: "Segurança" }
   ];
 

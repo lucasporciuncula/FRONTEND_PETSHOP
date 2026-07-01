@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+// 1. Importe a fonte desejada do pacote do Next.js
+import { Nunito } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./Providers";
 
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"], // Carrega os pesos que vamos usar
+  display: "swap",
+});
+ 
 export const metadata: Metadata = {
-  title: "PetShop",
-  description: "muito bom os produtos tá",
+  title: "PetShop Premium",
+  description: "O melhor para o seu pet",
 };
 
 export default function RootLayout({
@@ -14,11 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased">
-        <Providers>
-          {children}
-        </Providers>
+      {/* 3. Injete a classe da fonte no body do site */}
+      <body className={`${nunito.className} antialiased`}>
+        {children}
       </body>
     </html>
   );
 }
+
