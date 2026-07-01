@@ -6,14 +6,16 @@ import { useRouter } from "next/navigation";
 import { useProductContext } from "../context/ProductsContext";
 import { useState } from "react";
 import { useCart } from "../hooks/useOrders";
-export default function Carrinho() {
 
+export default function Pedidos() {
   const router = useRouter();
-  const { orders } = useCart();
-  const { products } = useProductContext()
+  const { products } = useProductContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState(products.slice(0, 0));
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Puxando os dados e funções do hook de carrinho/pedidos
+  const { orders, cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -32,8 +34,8 @@ export default function Carrinho() {
   };
 
   const handleClick = () => {
-    router.push("/Produtos")
-  }
+    router.push("/Produtos");
+  };
 
   const handleSuggestionClick = (label: string) => {
     setIsDropdownOpen(false);
@@ -41,17 +43,14 @@ export default function Carrinho() {
     router.push(`/item/${label}`);
   };
 
-  const handleNext = () =>{
-    if(cartItems[0]===undefined){return}
-    router.push("/pagamento")
-  }
-
-
-  const { cartItems, cartTotal, cleanCart, updateQuantity, makeOrder } = useCart()
+  const handleNext = () => {
+    if (cartItems[0] === undefined) { return; }
+    router.push("/pagamento");
+  };
 
   return (
     <div className="flex flex-col items-center justify-start w-full min-h-screen bg-[#FAFAF8] font-sans">
-
+      {/* BARRA SUPERIOR / HEADER DE BUSCA */}
       <div className="w-full max-w-7xl px-8 py-4 grid grid-cols-1 md:grid-cols-3 items-center gap-4">
         <div className="flex justify-start">
           <Link href="/">
@@ -67,8 +66,6 @@ export default function Carrinho() {
         </div>
 
         <div className="hidden md:block relative z-50">
-
-
           <form className="relative flex items-center border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus-within:border-[#664533] transition-all" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
@@ -106,7 +103,6 @@ export default function Carrinho() {
             </div>
           )}
 
-
           {isDropdownOpen && suggestions.length === 0 && (
             <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-sm text-gray-500 text-center">
               Nenhum produto encontrado para {searchTerm}
@@ -126,56 +122,54 @@ export default function Carrinho() {
         </div>
       </div>
 
-
+      {/* TÍTULO DA PÁGINA */}
       <div className="w-full bg-[#664533] py-4 px-8 sm:px-16 flex justify-between items-center">
         <div className="flex flex-row flex-2">
           <div className="border border-gray-500 bg-white p-2 mx-2 mr-10 font-bold text-black rounded-sm cursor-pointer hover:bg-[#E6DCD2]" onClick={() => handleClick()}>
             Voltar
           </div>
           <h1 className="text-3xl sm:text-4xl text-white font-extrabold">
-            Pedidos
+            Pedidos Realizados
           </h1>
         </div>
         <button
           onClick={() => cleanCart()}
           className="text-lg font-medium text-[#DEAD6F] hover:text-white transition-colors uppercase tracking-wider"
         >
-          limpar
+          limpar carrinho
         </button>
       </div>
 
-      {/* 3. LISTA DE PRODUTOS DA ORDER (.MAP) */}
+      {/* LISTA DE COMPRAS REALIZADAS PELO USUÁRIO */}
       <div className="w-full max-w-7xl px-8 sm:px-16 py-8 flex flex-col gap-6 flex-1">
-        {cartItems.length === 0 ? (
+        {(!orders || orders.length === 0) ? (
           <div className="text-center py-12 text-gray-400 text-lg">Nenhum pedido feito..</div>
         ) : (
-          orders.map((user) => (
+          orders.map((pedido) => (
             <div
-              key={user?.id}
+              key={pedido?.id}
               className="w-full flex items-center justify-between border-b border-gray-200 pb-6 last:border-none"
             >
-              {/* Bloco da Esquerda: Imagem + Detalhes */}
+              {/* Bloco da Esquerda: Detalhes do Pedido */}
               <div className="flex items-center gap-6">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
-                    Pedido em: {user?.createdAt}
+                    Pedido em: {pedido?.createdAt}
                   </span>
                   <h3 className="text-lg font-bold text-[#4A3728]">
-                    {user?.status}
+                    Status: {pedido?.status}
                   </h3>
-                  <h3 className="text-lg font-bold text-[#4A3728]">
-                    {user?.isDelivery?"Delivery":"Retire na loja!"}
+                  <h3 className="text-md font-semibold text-gray-600">
+                    Tipo: {pedido?.isDelivery ? "Delivery 🚚" : "Retire na loja! 🏪"}
                   </h3>
-                  <span className="text-sm text-gray-500">
-                    Preço unitário: R$ {user?.total.toFixed(2)}
-                  </span>
                 </div>
               </div>
 
-              {/* Bloco da Direita: Quantidade + Preço Total do Item */}
+              {/* Bloco da Direita: Preço Total do Pedido */}
               <div className="flex flex-col items-end gap-2 text-right">
+                <span className="text-xs uppercase tracking-wider text-gray-400 block">Total</span>
                 <span className="text-xl font-extrabold text-[#4A3728]">
-                  R$ {(user?.total).toFixed(2)}
+                  R$ {pedido?.total ? pedido.total.toFixed(2) : "0.00"}
                 </span>
               </div>
             </div>
@@ -183,17 +177,17 @@ export default function Carrinho() {
         )}
       </div>
 
-      {/* 4. RODAPÉ DE FINALIZAÇÃO DA COMPRA (Faixa bege com botão Comprar à direita) */}
+      {/* RODAPÉ DO CARRINHO ATUAL */}
       <div className="w-full bg-[#E6DCD2] py-6 px-8 sm:px-16 flex justify-end items-center mt-auto">
         <div className="flex items-center gap-8">
           <div className="text-right">
-            <span className="text-xs uppercase tracking-wider text-[#664533] block">Total do Pedido</span>
+            <span className="text-xs uppercase tracking-wider text-[#664533] block">Total do Carrinho</span>
             <span className="text-2xl font-black text-[#664533]">
               R$ {cartTotal}
             </span>
           </div>
-          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={()=>handleNext()}>
-            Comprar
+          <button className="bg-[#664533] hover:bg-[#523728] text-white px-10 py-4 font-bold text-lg rounded shadow-md active:scale-95 transition-all uppercase tracking-wider" onClick={() => handleNext()}>
+            Comprar Items do Carrinho
           </button>
         </div>
       </div>
