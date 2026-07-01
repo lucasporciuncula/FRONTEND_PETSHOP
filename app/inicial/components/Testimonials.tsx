@@ -7,9 +7,11 @@ export default function Testimonials() {
   const [active, setActive] = useState(0);
 
   const list = [
-    { name: "Pai João de Oxum", role: "Babalorixá", img: "/images/reviewers/1.jpg", text: "Amei os banhos de descarrego que dão nos bichos! Meu gato entrou com sete vidas e saiu brilhando tanto que parecia ter ganhado mais sete. Axé e muito obrigado pelo atendimento!" },
-    { name: "Mestre Hermes da Silva", role: "Alquimista", img: "/images/reviewers/2.jpg", text: "Transformaram o pelo do meu cachorro de latão para ouro puro com os produtos de vocês! A fórmula desse shampoo é pura magia da transmutação. Recomendo de olhos fechados." },
-    { name: "Cláudio Xicungunha", role: "Radiestesista Técnico", img: "/images/reviewers/3.jpg", text: "Passei o pêndulo na ração que comprei aqui e a energia vibratória deu 100% positiva! Meu cachorro parou de latir para o vento e o ambiente de casa ficou limpíssimo." }
+    {name: "Mariana Costa", role: "Médica Veterinária", img: "/images/reviewers/Mariana.jpg", text: "Excelente atendimento e produtos de alta qualidade. Meu cachorro apresentou uma melhora significativa na saúde da pelagem após algumas semanas de uso. Recomendo pela confiança e pelo cuidado com os animais."},
+
+    {name: "Ricardo Almeida", role: "Tutor de Pets", img: "/images/reviewers/Ricardo.jpg", text: "Encontrei tudo o que precisava para o meu pet em um só lugar. A entrega foi rápida, os produtos chegaram em perfeito estado e o atendimento ao cliente foi muito prestativo."},
+
+    {name: "Fernanda Oliveira", role: "Adestradora Canina", img: "/images/reviewers/Fernanda.jpg", text: "Trabalho diariamente com cães e sempre busco produtos de qualidade. A variedade do catálogo e a excelente experiência de compra fazem desta loja uma das minhas principais recomendações."}
   ];
 
   const handlePrev = () => {
@@ -23,7 +25,7 @@ export default function Testimonials() {
   return (
     <section className="w-full py-12 sm:py-16 bg-gray-50 overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-8 sm:mb-12">Our Clients Say!</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-8 sm:mb-12">Rewiew dos nossos clientes!</h1>
         <div className="relative px-2 sm:px-0">
           <button
             onClick={handlePrev}
