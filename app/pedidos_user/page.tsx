@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "../context/OrdersContext";
 import { useRouter } from "next/navigation";
 import { useProductContext } from "../context/ProductsContext";
 import { useState } from "react";
+import { useCart } from "../hooks/useOrders";
 export default function Carrinho() {
 
   const router = useRouter();
@@ -133,7 +133,7 @@ export default function Carrinho() {
             Voltar
           </div>
           <h1 className="text-3xl sm:text-4xl text-white font-extrabold">
-            Carrinho
+            Pedidos
           </h1>
         </div>
         <button
@@ -149,25 +149,25 @@ export default function Carrinho() {
         {cartItems.length === 0 ? (
           <div className="text-center py-12 text-gray-400 text-lg">Nenhum pedido feito..</div>
         ) : (
-          orders.map((item) => (
+          orders.map((user) => (
             <div
-              key={item?.id}
+              key={user?.id}
               className="w-full flex items-center justify-between border-b border-gray-200 pb-6 last:border-none"
             >
               {/* Bloco da Esquerda: Imagem + Detalhes */}
               <div className="flex items-center gap-6">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
-                    Pedido em: {item?.createdAt}
+                    Pedido em: {user?.createdAt}
                   </span>
                   <h3 className="text-lg font-bold text-[#4A3728]">
-                    {item?.status}
+                    {user?.status}
                   </h3>
                   <h3 className="text-lg font-bold text-[#4A3728]">
-                    {item?.isDelivery?"Delivery":"Retire na loja!"}
+                    {user?.isDelivery?"Delivery":"Retire na loja!"}
                   </h3>
                   <span className="text-sm text-gray-500">
-                    Preço unitário: R$ {item?.total.toFixed(2)}
+                    Preço unitário: R$ {user?.total.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -175,7 +175,7 @@ export default function Carrinho() {
               {/* Bloco da Direita: Quantidade + Preço Total do Item */}
               <div className="flex flex-col items-end gap-2 text-right">
                 <span className="text-xl font-extrabold text-[#4A3728]">
-                  R$ {(item?.total).toFixed(2)}
+                  R$ {(user?.total).toFixed(2)}
                 </span>
               </div>
             </div>

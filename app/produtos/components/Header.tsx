@@ -2,7 +2,7 @@
 
 import { useProductContext } from "@/app/context/ProductsContext";
 import { useCart } from "@/app/hooks/useOrders";
-import { LogOut, Search, ShoppingCart } from "lucide-react";
+import { ClockCheckIcon, LogOut, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -113,6 +113,10 @@ export default function Header() {
         <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
           {/* Ícones de Ação */}
           <div className="flex items-center gap-2 sm:gap-4 text-gray-700">
+            <button className="relative hover:text-[#664533] transition-colors p-2" onClick={()=>router.push("/pedidos_user")} aria-label="Carrinho">
+              <ClockCheckIcon className="w-5 h-5" />
+            </button>
+
             <button className="relative hover:text-[#664533] transition-colors p-2" onClick={buttonClickCart} aria-label="Carrinho">
               <ShoppingCart className="w-5 h-5" />
               <span className="absolute top-0 right-0 bg-[#664533] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
