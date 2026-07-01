@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "../utils/config";
 import { useAuthContext } from "../context/AuthContext";
 
-// --- TIPAGENS ---
 export type OrderStatus = "PROCESSANDO" | "ENVIADO" | "ENTREGUE";
 
 export interface CartItem {
@@ -20,7 +19,7 @@ export interface CartItem {
   animal: string;
 }
 
-export interface Order {
+export type Order = {
   id?: number; 
   userId: string | number | null; 
   customerEmail: string | null;
@@ -53,6 +52,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const { user, token } = useAuthContext(); 
   const { products } = useProducts();
   const router = useRouter();
+
+  
 
   // Estados
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -152,9 +153,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (!res.ok) throw console.log("Erro ao atualizar status do pedido.");
 
       const updatedOrder = await res.json();
-      setOrders((prevOrders) =>
-        prevOrders.map((order) => (order.id === id ? updatedOrder : order))
-      );
+      console.log("aqui ta o pedido atualizado", updatedOrder)
+      setOrders((prev) =>
+  prev.map((order) =>
+    order.id === id
+      ? {
+          ...order,
+          status,
+        }
+      : order
+  )
+);
       setErrorOrders(null);
     } catch (err) {
       setErrorOrders(err instanceof Error ? err.message : "Erro desconhecido");
