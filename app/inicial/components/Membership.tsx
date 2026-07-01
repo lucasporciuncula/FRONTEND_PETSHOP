@@ -5,9 +5,9 @@ import { Check } from "lucide-react";
 
 export default function Membership() {
   const plans = [
-    { id: "01", title: "Popular", price: "$99.00", bg: "/images/membership/coruja-bronze.jpg", perks: ["10% discount", "2 adult and 2 child", "Free animal exhibition"], color: "text-[#CD7F32]", borderColor: "border-[#CD7F32]/30 hover:border-[#CD7F32] hover:bg-[#CD7F32]",badge: "border-[#CD7F32]/20" },
-    { id: "02", title: "Standard", price: "$149.00", bg: "/images/membership/gato-prata.jpg", perks: ["15% discount", "4 adult and 4 child", "Free animal exhibition"], color: "text-[#E2E8F0]", borderColor: "border-white/30 hover:border-white hover:bg-white hover:text-gray-950",badge: "border-white/20" },
-    { id: "03", title: "Premium", price: "$199.00", bg: "/images/membership/cachorro-ouro.jpg", perks: ["20% discount", "6 adult and 6 child", "Free animal exhibition"], color: "text-[#D4AF37]", borderColor: "border-[#D4AF37]/40 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-white",badge: "border-[#D4AF37]/20" }
+    { id: "01", title: "Popular", price: "R$99.00", bg: "/images/membership/coruja-bronze.jpg", perks: ["10% desconto", "2 produtos da sua escolha", "cupons mensais"], color: "text-[#CD7F32]", borderColor: "border-[#CD7F32]/30 hover:border-[#CD7F32] hover:bg-[#CD7F32]",badge: "border-[#CD7F32]/20" },
+    { id: "02", title: "iniciante", price: "R$149.00", bg: "/images/membership/gato-prata.jpg", perks: ["15% disconto", "4 produtos da sua escolha", "cupons semanais"], color: "text-[#E2E8F0]", borderColor: "border-white/30 hover:border-white hover:bg-white hover:text-gray-950",badge: "border-white/20" },
+    { id: "03", title: "Premium", price: "R$199.00", bg: "/images/membership/cachorro-ouro.jpg", perks: ["20% desconto", "6 produtos da sua escolha e brindes", "cupons diários"], color: "text-[#D4AF37]", borderColor: "border-[#D4AF37]/40 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-white",badge: "border-[#D4AF37]/20" }
   ];
 
   return (
@@ -15,9 +15,9 @@ export default function Membership() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8 md:mb-12">
           <div className="space-y-2">
-            <p className="text-[#63783D] font-semibold text-base sm:text-lg"><span className="font-bold">#</span> Membership</p>
+            <p className="text-[#4a2f20] font-semibold text-base sm:text-lg"><span className="font-bold">#</span> Colaboradores</p>
             <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 leading-tight">
-              You Can Be A Proud Member Of <span className="text-[#63783D]">Zoofari</span>
+              Você pode ser um colaborador do <span className="text-[#4a2f20]">PetShop</span>
             </h1>
           </div>
         </div>
@@ -45,7 +45,7 @@ export default function Membership() {
                   ))}
                 </div>
                 <button className={`w-full mt-4 border py-2.5 sm:py-3 rounded-xl font-semibold text-sm transition-all ${plan.borderColor}`}>
-                  Get Started
+                  Vamos começar!
                 </button>
               </div>
             </div>
